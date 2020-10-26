@@ -4,6 +4,7 @@ import { LabsModule } from './labs/labs.module';
 import { UsersModule } from './users/users.module';
 import { ItemsModule } from './items/items.module';
 import { CoreModule } from './core/core.module';
+import { AuthzModule } from './authz/authz.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { CoreModule } from './core/core.module';
     CoreModule,
     LabsModule,
     ItemsModule,
-    UsersModule
+    UsersModule,
+    AuthzModule
   ],
   controllers: [],
   providers: [],

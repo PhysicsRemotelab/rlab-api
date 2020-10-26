@@ -6,9 +6,11 @@ import {
     Param,
     Post,
     Put,
+    UseGuards,
   } from '@nestjs/common';
   import { LabsService } from './labs.service';
   import { Lab } from './lab.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('labs')
 export class LabsController {
@@ -17,6 +19,7 @@ export class LabsController {
         private readonly labsService: LabsService
     ) { }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get()
     async findAll(): Promise<Lab[]> {
         return this.labsService.findAll();
