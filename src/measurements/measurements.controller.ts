@@ -13,6 +13,8 @@ export class MeasurementController {
         private readonly measurementService: MeasurementService
     ) { }
 
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Permissions('read:measurements')
     @Get()
     findAll(): Promise<Measurement[]> {
         return this.measurementService.findAll();
