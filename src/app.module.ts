@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { LabsModule } from './labs/labs.module';
 import { UsersModule } from './users/users.module';
-import { ItemsModule } from './items/items.module';
 import { CoreModule } from './core/core.module';
-import { AuthzModule } from './authz/authz.module';
+import { AuthModule } from './auth/auth.module';
+import { MeasurementsModule } from './measurements/measurements.module';
 
 @Module({
   imports: [
@@ -19,10 +19,10 @@ import { AuthzModule } from './authz/authz.module';
       synchronize: true
     }),
     CoreModule,
+    AuthModule,
     LabsModule,
-    ItemsModule,
-    UsersModule,
-    AuthzModule
+    MeasurementsModule,
+    UsersModule
   ],
   controllers: [],
   providers: [],

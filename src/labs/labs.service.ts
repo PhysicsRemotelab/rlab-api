@@ -1,56 +1,43 @@
 import { Injectable } from '@nestjs/common';
-import { Lab } from './lab.entity';
+import { InjectModel } from '@nestjs/sequelize';
+import { LabDto } from './lab.dto';
+import { Lab } from './lab.model';
 
 @Injectable()
 export class LabsService {
 
-    private readonly labs: Lab[] = [
-        {
-            "id": 1,
-            "name": "hello"
-        },
-        {
-            "id": 2,
-            "name": "lab"
-        }
-    ];
+    constructor(
+        @InjectModel(Lab)
+        private readonly labModel: typeof Lab
+    ) { }
 
-    findAll(): Lab[] {
-        return this.labs;
+    findAll(): Promise<Lab[]> {
+        return this.labModel.findAll();
     }
 
-    create(newLab: Lab): void {
-        const id = new Date().valueOf();
-        this.labs[id] = {
-            ...newLab,
-            id,
-        };
+    create(labDto: LabDto): Promise<Lab> {
+        const lab = new Lab();
+        lab.name = labDto.name;
+        lab.description = labDto.description;
+        lab.image = labDto.image;
+        return lab.save();
     }
 
-    find(id: number): Lab {
-        const record: Lab = this.labs[id];
-    
-        if (record) {
-          return record;
-        }
-        throw new Error('No record found');
+    async remove(id: string): Promise<number> {
+        const lab = await this.labModel.findOne({ where: { id } });
+        await lab.destroy();
+        return 1;
     }
 
-    update(updatedLab: Lab): void {
-        if (this.labs[updatedLab.id]) {
-          this.labs[updatedLab.id] = updatedLab;
-          return;
-        }
-        throw new Error('No record found to update');
+    async update(labDto: LabDto): Promise<Lab> {
+        const lab = await this.labModel.findOne({ where: { id: labDto.id } });
+        lab.name = labDto.name;
+        lab.description = labDto.description;
+        lab.image = labDto.image;
+        return lab.save();
     }
 
-    delete(id: number):void {
-        const record: Lab = this.labs[id];
-        if (record) {
-          delete this.labs[id];
-          return;
-        }
-        throw new Error('No record found to delete');
+    findOne(id: string): Promise<Lab> {
+        return this.labModel.findOne({ where: { id } });
     }
-
 }

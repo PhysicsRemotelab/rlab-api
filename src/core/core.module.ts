@@ -7,4 +7,4 @@ import { LoggingInterceptor } from './logging.interceptor';
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor }
   ]
 })
-export class CoreModule {}
+export class CoreModule { }

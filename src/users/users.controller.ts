@@ -1,19 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './user.model';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { User } from './user.model';
+import { UserDto } from './user.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { PermissionsGuard } from 'src/auth/permissions.guard';
+import { Permissions } from '../auth/permissions.decorator';
 
 @Controller('users')
 export class UsersController {
 
     constructor(
-        private usersService: UsersService
+        private readonly usersService: UsersService
     ) { }
-
-    @Post()
-    create(@Body() createUserDto: CreateUserDto): Promise<User> {
-        return this.usersService.create(createUserDto);
-    }
 
     @Get()
     findAll(): Promise<User[]> {
@@ -25,8 +23,24 @@ export class UsersController {
         return this.usersService.findOne(id);
     }
 
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Permissions('create:users')
+    @Post()
+    create(@Body() userDto: UserDto): Promise<User> {
+        return this.usersService.create(userDto);
+    }
+
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Permissions('delete:users')
     @Delete(':id')
-    remove(@Param('id') id: string): Promise<void> {
+    remove(@Param('id') id: string): Promise<number> {
         return this.usersService.remove(id);
+    }
+
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Permissions('update:users')
+    @Put()
+    update(@Body() userDto: UserDto): Promise<User> {
+        return this.usersService.update(userDto);
     }
 }

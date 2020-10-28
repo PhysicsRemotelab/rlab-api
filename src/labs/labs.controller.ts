@@ -1,18 +1,10 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    Post,
-    Put,
-    UseGuards,
-  } from '@nestjs/common';
-  import { LabsService } from './labs.service';
-  import { Lab } from './lab.entity';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { LabsService } from './labs.service';
+import { Lab } from './lab.model';
+import { LabDto } from './lab.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { Permissions } from '../permissions.decorator';
-import { PermissionsGuard } from '../permissions.guard';
+import { PermissionsGuard } from 'src/auth/permissions.guard';
+import { Permissions } from '../auth/permissions.decorator';
 
 @Controller('labs')
 export class LabsController {
@@ -22,33 +14,33 @@ export class LabsController {
     ) { }
 
     @Get()
-    async findAll(): Promise<Lab[]> {
+    findAll(): Promise<Lab[]> {
         return this.labsService.findAll();
     }
 
     @Get(':id')
-    async find(@Param('id') id: number): Promise<Lab> {
-      return this.labsService.find(id);
+    findOne(@Param('id') id: string): Promise<Lab> {
+        return this.labsService.findOne(id);
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Permissions('create:labs')
     @Post()
-    @Permissions('create:labs')
-    async create(@Body('lab') item: Lab): Promise<void> {
-      this.labsService.create(item);
+    create(@Body() labDto: LabDto): Promise<Lab> {
+        return this.labsService.create(labDto);
     }
-  
+
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Put()
-    @Permissions('create:labs')
-    async update(@Body('lab') item: Lab): Promise<void> {
-      this.labsService.update(item);
-    }
-  
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Delete(':id')
     @Permissions('delete:labs')
-    async delete(@Param('id') id: number): Promise<void> {
-      this.labsService.delete(id);
+    @Delete(':id')
+    remove(@Param('id') id: string): Promise<number> {
+        return this.labsService.remove(id);
+    }
+
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Permissions('update:labs')
+    @Put()
+    update(@Body() labDto: LabDto): Promise<Lab> {
+        return this.labsService.update(labDto);
     }
 }
