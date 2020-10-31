@@ -17,7 +17,7 @@ export class Lab extends Model {
     @Column({ field: 'description', type: DataType.STRING(200) })
     public description: string;
 
-    @Column({ field: 'image', type: DataType.STRING(200) })
+    @Column({ field: 'image', type: DataType.STRING(2000) })
     public image: string;
 
     @Column({ field: 'created_at' })

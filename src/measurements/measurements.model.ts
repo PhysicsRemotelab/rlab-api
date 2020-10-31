@@ -1,5 +1,6 @@
 import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { Lab } from 'src/labs/lab.model';
+import { User } from 'src/users/user.model';
 
 @Table({ tableName: 'measurements', timestamps: true })
 export class Measurement extends Model {
@@ -11,11 +12,12 @@ export class Measurement extends Model {
     @Column({ field: 'lab_id', type: DataType.INTEGER })
     public labId: number;
 
+    @ForeignKey(() => User)
+    @Column({ field: 'user_id', type: DataType.INTEGER })
+    public  userId: number;
+
     @Column({ field: 'result', type: DataType.STRING(1000) })
     public result: string;
-
-    @Column({ field: 'email', type: DataType.STRING(200) })
-    public email: string;
 
     @Column({ field: 'created_at' })
     public createdAt: Date;

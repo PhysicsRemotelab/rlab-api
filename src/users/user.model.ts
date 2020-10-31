@@ -18,6 +18,9 @@ export class User extends Model {
     @Column({ field: 'gravatar', type: DataType.STRING(200) })
     public gravatar: string;
 
+    @Column({ field: 'last_login' })
+    public lastLogin: Date;
+
     @Column({ field: 'created_at' })
     public createdAt: Date;
 

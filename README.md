@@ -6,6 +6,11 @@
 * docker-compose up
 * docker run rlab-api
 
+## Seed
+* sequelize-cli seed:generate --name labs
+* sequelize-cli db:seed:all
+* sequelize-cli db:seed:undo:all
+
 ## Tutorials
 ### SSL for NestJS
 * https://docs.nestjs.com/faq/multiple-servers
