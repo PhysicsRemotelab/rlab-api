@@ -19,5 +19,5 @@ export class UserDto {
 
     @IsString()
     @IsOptional()
-    gravatar?: string;
+    picture?: string;
 }

@@ -24,7 +24,6 @@ export class UsersController {
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('create:users')
     @Post()
     create(@Body() userDto: UserDto): Promise<User> {
         return this.usersService.create(userDto);

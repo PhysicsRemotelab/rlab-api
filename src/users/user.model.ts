@@ -15,8 +15,8 @@ export class User extends Model {
     @Column({ field: 'nickname', type: DataType.STRING(200) })
     public nickname: string;
 
-    @Column({ field: 'gravatar', type: DataType.STRING(200) })
-    public gravatar: string;
+    @Column({ field: 'picture', type: DataType.STRING(200) })
+    public picture: string;
 
     @Column({ field: 'last_login' })
     public lastLogin: Date;

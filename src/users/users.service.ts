@@ -15,12 +15,18 @@ export class UsersService {
         return this.userModel.findAll();
     }
 
-    create(userDto: UserDto): Promise<User> {
+    async create(userDto: UserDto): Promise<User> {
+        const user1 = await this.userModel.findOne({ where: { email: userDto.email } });
+        if(user1) {
+            user1.lastLogin = new Date();
+            return user1.save();
+        }
+
         const user = new User();
         user.name = userDto.name;
         user.email = userDto.email;
         user.nickname = userDto.nickname;
-        user.gravatar = userDto.gravatar;
+        user.picture = userDto.picture;
         return user.save();
     }
 
@@ -35,7 +41,7 @@ export class UsersService {
         user.name = userDto.name;
         user.email = userDto.email;
         user.nickname = userDto.nickname;
-        user.gravatar = userDto.gravatar;
+        user.picture = userDto.picture;
         return user.save();
     }
 
