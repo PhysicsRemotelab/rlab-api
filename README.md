@@ -21,3 +21,6 @@
 ### Docker
 https://blog.logrocket.com/containerized-development-nestjs-docker/
 
+### NgRx CRUD app
+https://medium.com/better-programming/angular-building-a-crud-application-with-ngrx-40e5f1c0b50c
+

@@ -12,6 +12,9 @@ export class User extends Model {
     @Column({ field: 'email', type: DataType.STRING(200) })
     public email: string;
 
+    @Column({ field: 'roles', type: DataType.STRING(200) })
+    public roles: string;
+
     @Column({ field: 'nickname', type: DataType.STRING(200) })
     public nickname: string;
 

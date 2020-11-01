@@ -7,7 +7,7 @@ module.exports = {
         name: 'admin',
         email: 'admin@remotelab.ee',
         nickname: 'admin',
-        gravatar: 'https://vignette.wikia.nocookie.net/fan-fiction-library/images/1/15/Admin.png/revision/latest?cb=20140917130743',
+        picture: 'https://vignette.wikia.nocookie.net/fan-fiction-library/images/1/15/Admin.png/revision/latest?cb=20140917130743',
         last_login: new Date(),
         created_at: new Date(),
         updated_at: new Date()
@@ -16,7 +16,7 @@ module.exports = {
         name: 'student',
         email: 'student@remotelab.ee',
         nickname: 'student',
-        gravatar: 'https://vignette.wikia.nocookie.net/fan-fiction-library/images/1/15/Admin.png/revision/latest?cb=20140917130743',
+        picture: 'https://vignette.wikia.nocookie.net/fan-fiction-library/images/1/15/Admin.png/revision/latest?cb=20140917130743',
         last_login: new Date(),
         created_at: new Date(),
         updated_at: new Date()

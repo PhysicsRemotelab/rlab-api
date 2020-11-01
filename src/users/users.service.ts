@@ -24,6 +24,7 @@ export class UsersService {
 
         const user = new User();
         user.name = userDto.name;
+        user.roles = userDto.roles;
         user.email = userDto.email;
         user.nickname = userDto.nickname;
         user.picture = userDto.picture;
