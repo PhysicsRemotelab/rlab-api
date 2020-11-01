@@ -12,8 +12,7 @@ const httpsOptions = {
 };
 
 async function bootstrap() {
-  // const app = await NestFactory.create(AppModule, { httpsOptions });
-  const app = await NestFactory.create(AppModule, {  });
+  const app = await NestFactory.create(AppModule, { httpsOptions });
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: true }));
   await app.listen(process.env.PORT);
