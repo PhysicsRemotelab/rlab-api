@@ -43,4 +43,16 @@ export class LabsController {
     update(@Body() labDto: LabDto): Promise<Lab> {
         return this.labsService.update(labDto);
     }
+
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Put('/use')
+    useLab(@Body() labDto: LabDto): Promise<Lab | 0> {
+        return this.labsService.useLab(labDto);
+    }
+
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Put('/free')
+    freeLab(@Body() labDto: LabDto): Promise<Lab | 0> {
+        return this.labsService.freeLab(labDto);
+    }
 }
