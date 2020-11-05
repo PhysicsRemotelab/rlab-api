@@ -38,21 +38,21 @@ export class LabsController {
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('update:labs')
+    //@Permissions('update:labs')
     @Put()
     update(@Body() labDto: LabDto): Promise<Lab> {
         return this.labsService.update(labDto);
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('use:lab')
+   // @Permissions('use:lab')
     @Put('/use')
     useLab(@Body() labDto: LabDto): Promise<Lab | 0> {
         return this.labsService.useLab(labDto);
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('use:lab')
+    //@Permissions('use:lab')
     @Put('/free')
     freeLab(@Body() labDto: LabDto): Promise<Lab | 0> {
         return this.labsService.freeLab(labDto);

@@ -14,14 +14,14 @@ export class MeasurementController {
     ) { }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('read:measurements')
+    //@Permissions('read:measurements')
     @Get()
     findAll(): Promise<Measurement[]> {
         return this.measurementService.findAll();
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('create:measurements')
+    //@Permissions('create:measurements')
     @Post()
     create(@Body() measurementDto: MeasurementDto): Promise<Measurement> {
         return this.measurementService.create(measurementDto);
@@ -40,7 +40,7 @@ export class MeasurementController {
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('delete:measurements')
+    //@Permissions('delete:measurements')
     @Delete(':id')
     remove(@Param('id') id: string): Promise<number> {
         return this.measurementService.remove(id);
