@@ -20,6 +20,9 @@ export class Lab extends Model {
     @Column({ field: 'image', type: DataType.STRING(2000) })
     public image: string;
 
+    @Column({ field: 'taken_until', type: DataType.DATE })
+    public takenUntil: Date;
+
     @Column({ field: 'created_at' })
     public createdAt: Date;
 

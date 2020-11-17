@@ -53,6 +53,9 @@ export class LabsService {
             const email = this.request.user['https://remotelab.ee/email'];
             const user = await this.userModel.findOne({ where: { email } });
             lab.userId = user.id;
+            const currentDate = new Date();
+            currentDate.setHours(currentDate.getHours() + 1);
+            lab.takenUntil = currentDate;
             return lab.save();
         }
         return 0;
@@ -64,6 +67,7 @@ export class LabsService {
         const user = await this.userModel.findOne({ where: { email } });
         if(lab.userId === user.id) {
             lab.userId = null;
+            lab.takenUntil = null;
             return lab.save();
         }
         return 0;
