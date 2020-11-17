@@ -49,12 +49,13 @@ export class LabsService {
 
     async useLab(labDto: LabDto): Promise<Lab | 0> {
         const lab = await this.labModel.findOne({ where: { id: labDto.id } });
-        if(lab.userId === null) {
+        const currentDate = new Date();
+        currentDate.setHours(currentDate.getHours() + 1);
+
+        if(lab.userId === null || lab.takenUntil < new Date()) {
             const email = this.request.user['https://remotelab.ee/email'];
             const user = await this.userModel.findOne({ where: { email } });
             lab.userId = user.id;
-            const currentDate = new Date();
-            currentDate.setHours(currentDate.getHours() + 1);
             lab.takenUntil = currentDate;
             return lab.save();
         }
