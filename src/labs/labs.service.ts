@@ -50,7 +50,7 @@ export class LabsService {
     async useLab(labDto: LabDto): Promise<Lab | 0> {
         const lab = await this.labModel.findOne({ where: { id: labDto.id } });
         const currentDate = new Date();
-        currentDate.setMinutes(currentDate.getMinutes() + 1);
+        currentDate.setMinutes(currentDate.getMinutes() + 10);
 
         if(lab.userId === null || lab.takenUntil < new Date()) {
             const email = this.request.user['https://remotelab.ee/email'];
