@@ -20,18 +20,10 @@ module.exports = {
         updated_at: new Date()
       },
       {
-        name: 'Heat dissipation',
+        name: 'Resistance',
         user_id: null,
-        description: 'Measure heat dissipation on metal sheet',
+        description: 'Measure resistance and temperature relations',
         image: 'https://www.sciencenews.org/wp-content/uploads/2020/02/020620_ec_cold-hot_feat-1028x579.jpg',
-        created_at: new Date(),
-        updated_at: new Date()
-      },
-      {
-        name: 'Pendulum',
-        user_id: null,
-        description: 'Measure dampering of pendulum',
-        image: 'https://img.apmcdn.org/b5d0ca58439c1d2d8b40995c7e4a95061a7fa31a/uncropped/70a626-20200520-pendulum.jpg',
         created_at: new Date(),
         updated_at: new Date()
       }
