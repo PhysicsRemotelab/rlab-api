@@ -26,6 +26,14 @@ module.exports = {
         image: 'https://www.sciencenews.org/wp-content/uploads/2020/02/020620_ec_cold-hot_feat-1028x579.jpg',
         created_at: new Date(),
         updated_at: new Date()
+      },
+      {
+        name: 'Temperature',
+        user_id: null,
+        description: 'Measure difference between heat camera and temperature sensor',
+        image: 'http://traveldave.com/wp-content/uploads/2010/02/thermalcat2_sm.jpg',
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ]);
   },

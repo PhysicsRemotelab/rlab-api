@@ -7,6 +7,7 @@
 * docker run rlab-api
 
 ## Seed
+* Run program to automatically create tables
 * sequelize-cli seed:generate --name labs
 * sequelize-cli db:seed:all
 * sequelize-cli db:seed:undo:all
