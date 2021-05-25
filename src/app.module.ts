@@ -6,16 +6,17 @@ import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { MeasurementsModule } from './measurements/measurements.module';
 import { HistoryModule } from './history/history.module';
+import * as dotenv from 'dotenv';
 
 @Module({
   imports: [
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'strongpassword',
-      database: 'remotelabdb',
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       autoLoadModels: true,
       synchronize: true
     }),
