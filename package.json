@@ -1,7 +1,7 @@
 {
-  "name": "rlab-api",
+  "name": "rlab-site",
   "version": "0.0.1",
-  "description": "",
+  "description": "Remote Control Laboratory for Measurements in Physics",
   "author": "Toomas Tahves",
   "license": "GPLV3",
   "private": true,
