@@ -16,7 +16,7 @@ export class Measurement extends Model {
     @Column({ field: 'user_id', type: DataType.INTEGER })
     public  userId: number;
 
-    @Column({ field: 'result', type: DataType.STRING(65000) })
+    @Column({ field: 'result', type: DataType.STRING(10000) })
     public result: string;
 
     @Column({ field: 'created_at' })
