@@ -1,4 +1,5 @@
-import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, Model, Table, BelongsToMany } from 'sequelize-typescript';
+import { LabUser } from 'src/lab_users/lab_user.model';
 import { User } from 'src/users/user.model';
 
 @Table({ tableName: 'labs', timestamps: true })
@@ -6,10 +7,6 @@ export class Lab extends Model {
 
     @Column({ field: 'id', primaryKey: true, autoIncrement: true, type: DataType.INTEGER })
     public id: number;
-
-    @ForeignKey(() => User)
-    @Column({ field: 'user_id', type: DataType.INTEGER })
-    public userId: number;
 
     @Column({ field: 'name', type: DataType.STRING(100) })
     public name: string;
@@ -20,12 +17,12 @@ export class Lab extends Model {
     @Column({ field: 'image', type: DataType.STRING(2000) })
     public image: string;
 
-    @Column({ field: 'taken_until', type: DataType.DATE })
-    public takenUntil: Date;
-
     @Column({ field: 'created_at' })
     public createdAt: Date;
 
     @Column({ field: 'updated_at' })
     public updatedAt: Date;
+
+    @BelongsToMany(() => User, () => LabUser)
+    public users?: Array<User & {lab_user: LabUser}>;
 }

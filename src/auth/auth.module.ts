@@ -5,6 +5,7 @@ import { JwtStrategy } from './jwt.strategy';
 @Module({
   imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
   providers: [JwtStrategy],
-  exports: [PassportModule],
+  exports: [PassportModule]
 })
-export class AuthModule { }
+export class AuthModule {
+}

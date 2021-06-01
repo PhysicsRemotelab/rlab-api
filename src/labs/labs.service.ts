@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { InjectModel } from '@nestjs/sequelize';
+import { LabUser } from 'src/lab_users/lab_user.model';
 import { User } from 'src/users/user.model';
 import { LabDto } from './lab.dto';
 import { Lab } from './lab.model';
@@ -13,12 +14,14 @@ export class LabsService {
         private readonly labModel: typeof Lab,
         @InjectModel(User)
         private readonly userModel: typeof User,
+        @InjectModel(LabUser)
+        private readonly labUserModel: typeof LabUser,
         @Inject(REQUEST)
         private request
     ) { }
 
     findAll(): Promise<Lab[]> {
-        return this.labModel.findAll();
+        return this.labModel.findAll({ include: [{ model: User }] });
     }
 
     create(labDto: LabDto): Promise<Lab> {
@@ -44,33 +47,47 @@ export class LabsService {
     }
 
     findOne(id: string): Promise<Lab> {
-        return this.labModel.findOne({ where: { id } });
+        return this.labModel.findOne({ where: { id }, include: [{ model: User }] });
     }
 
     async useLab(labDto: LabDto): Promise<Lab | 0> {
-        const lab = await this.labModel.findOne({ where: { id: labDto.id } });
-        const currentDate = new Date();
-        currentDate.setMinutes(currentDate.getMinutes() + 60*24);
+        const email = this.request.user['https://remotelab.ee/email'];
+        const user = await this.userModel.findOne({ where: { email } });
+        let labUserModel = await this.labUserModel.findOne({ where: { lab_id: labDto.id }});
+        const lab = await this.labModel.findOne({ where: { id: labDto.id }, include: [{ model: User }] });
 
-        if(lab.userId === null || lab.takenUntil < new Date()) {
-            const email = this.request.user['https://remotelab.ee/email'];
-            const user = await this.userModel.findOne({ where: { email } });
-            lab.userId = user.id;
-            lab.takenUntil = currentDate;
-            return lab.save();
+        if(labUserModel) {
+            if(labUserModel.takenUntil < new Date()) {
+                await labUserModel.destroy();
+                labUserModel = await this.labUserModel.findOne({ where: { lab_id: labDto.id }});
+            }
         }
-        return 0;
+
+        if(!labUserModel) {
+            const takenAt = new Date();
+            const takenUntil = new Date(takenAt.getTime() + 10*60000);
+            const labUser = new LabUser();
+            labUser.userId = user.id;
+            labUser.labId = lab.id;
+            labUser.takenAt = takenAt;
+            labUser.takenUntil = takenUntil;
+            await labUser.save();
+            return this.labModel.findOne({ where: { id: lab.id }, include: [{ model: User }] });
+        }
+        return lab;
     }
 
     async freeLab(labDto: LabDto): Promise<Lab | 0> {
-        const lab = await this.labModel.findOne({ where: { id: labDto.id } });
         const email = this.request.user['https://remotelab.ee/email'];
         const user = await this.userModel.findOne({ where: { email } });
-        if(lab.userId === user.id) {
-            lab.userId = null;
-            lab.takenUntil = null;
-            return lab.save();
+        const labUserModel = await this.labUserModel.findOne({ where: { user_id: user.id, lab_id: labDto.id }});
+
+        if(labUserModel) {
+            await labUserModel.destroy();
+            return this.labModel.findOne({ where: { id: labUserModel.labId }, include: [{ model: User }] });
         }
-        return 0;
+
+        const lab = await this.labModel.findOne({ where: { id: labDto.id }, include: [{ model: User }] });
+        return lab;
     }
 }

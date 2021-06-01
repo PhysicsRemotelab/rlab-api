@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, Model, Table, BelongsTo } from 'sequelize-typescript';
 import { Lab } from 'src/labs/lab.model';
 import { User } from 'src/users/user.model';
 
@@ -24,4 +24,10 @@ export class Measurement extends Model {
 
     @Column({ field: 'updated_at' })
     public updatedAt: Date;
+
+    @BelongsTo(() => User)
+    public user: User;
+
+    @BelongsTo(() => Lab)
+    public lab: Lab;
 }

@@ -11,10 +11,6 @@ export class UserDto {
 
     @IsString()
     @IsOptional()
-    roles?: string;
-
-    @IsString()
-    @IsOptional()
     email?: string;
 
     @IsString()

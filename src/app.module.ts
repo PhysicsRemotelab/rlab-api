@@ -5,8 +5,9 @@ import { UsersModule } from './users/users.module';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { MeasurementsModule } from './measurements/measurements.module';
-import { HistoryModule } from './history/history.module';
-import * as dotenv from 'dotenv';
+import { RolesModule } from './roles/roles.module';
+import { UserRolesModule } from './user_roles/user_role.module';
+import { LabUsersModule } from './lab_users/lab_user.module';
 
 @Module({
   imports: [
@@ -25,11 +26,12 @@ import * as dotenv from 'dotenv';
     LabsModule,
     MeasurementsModule,
     UsersModule,
-    HistoryModule
+    RolesModule,
+    UserRolesModule,
+    LabUsersModule
   ],
   controllers: [],
   providers: [],
 })
 export class AppModule {
-
 }
