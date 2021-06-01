@@ -1,16 +1,16 @@
 ## Commands
-* npm run start:dev
+* npm install
+* npm run start
+* http://localhost:4000/api/
 
-## Setup Docker
+## Database tables and seed data
+* Run program to automatically create tables
+* sequelize-cli db:seed:all
+
+## Setup Docker (optional)
 * docker build -t rlab-api .
 * docker-compose up
 * docker run rlab-api
-
-## Seed
-* Run program to automatically create tables
-* sequelize-cli seed:generate --name labs
-* sequelize-cli db:seed:all
-* sequelize-cli db:seed:undo:all
 
 ## Tutorials
 ### SSL for NestJS

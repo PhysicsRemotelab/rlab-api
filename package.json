@@ -1,5 +1,5 @@
 {
-  "name": "rlab-site",
+  "name": "rlab-api",
   "version": "0.0.1",
   "description": "Remote Control Laboratory for Measurements in Physics",
   "author": "Toomas Tahves",
@@ -25,6 +25,7 @@
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.6.17",
     "@nestjs/sequelize": "^0.2.0",
+    "@nestjs/swagger": "^4.8.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "dotenv": "^10.0.0",
@@ -36,7 +37,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.1.0",
     "sequelize": "^6.6.2",
-    "sequelize-typescript": "^2.1.0"
+    "sequelize-typescript": "^2.1.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
