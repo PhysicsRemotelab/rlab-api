@@ -7,6 +7,10 @@
 * Run program to automatically create tables
 * sequelize-cli db:seed:all
 
+# Migrations
+* npx sequelize-cli migration:generate --name migration-skeleton
+* npx sequelize-cli db:migrate
+
 ## Setup Docker (optional)
 * docker build -t rlab-api .
 * docker-compose up

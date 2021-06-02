@@ -17,6 +17,9 @@ export class Lab extends Model {
     @Column({ field: 'image', type: DataType.STRING(2000) })
     public image: string;
 
+    @Column({ field: 'is_disabled', type: DataType.BLOB })
+    public isDisabled: boolean;
+
     @Column({ field: 'created_at' })
     public createdAt: Date;
 

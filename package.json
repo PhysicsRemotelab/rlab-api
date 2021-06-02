@@ -52,6 +52,7 @@
     "eslint-plugin-import": "^2.23.3",
     "prettier": "^2.3.0",
     "sequelize-cli": "^6.2.0",
+    "sequelize-typescript-migration": "0.0.1-beta.3",
     "ts-loader": "^9.2.2",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.9.0",
