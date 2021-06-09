@@ -30,7 +30,14 @@ module.exports = {
         image: 'http://traveldave.com/wp-content/uploads/2010/02/thermalcat2_sm.jpg',
         created_at: new Date(),
         updated_at: new Date()
-      }
+      },
+      {
+        name: 'Spectrometer 2',
+        description: 'Explore different spectrums',
+        image: 'https://static1.bigstockphoto.com/1/9/2/large1500/291083350.jpg',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
     ]);
   },
 
