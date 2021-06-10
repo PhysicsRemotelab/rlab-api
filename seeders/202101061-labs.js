@@ -38,6 +38,13 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date()
       },
+      {
+        name: 'Gamma radiation 2',
+        description: 'Determine chemical composition',
+        image: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ee0b7156-82bf-4b77-9372-bddd9552d8cc/d42e0f-5521a1f0-4293-45ce-9a0a-11057badadde.jpg/v1/fill/w_1024,h_768,q_75,strp/radiation_by_endoxos_d42e0f-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD03NjgiLCJwYXRoIjoiXC9mXC9lZTBiNzE1Ni04MmJmLTRiNzctOTM3Mi1iZGRkOTU1MmQ4Y2NcL2Q0MmUwZi01NTIxYTFmMC00MjkzLTQ1Y2UtOWEwYS0xMTA1N2JhZGFkZGUuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.vdtdwvwFk0kEesFFqohZ-HQ16N6MNvFRqPFryxDQF_c',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
     ]);
   },
 
