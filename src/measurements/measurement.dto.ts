@@ -10,4 +10,7 @@ export class MeasurementDto {
 
     @IsString()
     result: string;
+
+    @IsString()
+    name: string;
 }

@@ -19,6 +19,9 @@ export class Measurement extends Model {
     @Column({ field: 'result', type: DataType.STRING(10000) })
     public result: string;
 
+    @Column({ field: 'name', type: DataType.STRING(256) })
+    public name: string;
+
     @Column({ field: 'created_at' })
     public createdAt: Date;
 

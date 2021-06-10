@@ -28,6 +28,7 @@ export class MeasurementService {
         const user = await this.userModel.findOne({ where: { email } });
         const measurement = new Measurement();
         measurement.result = measurementDto.result;
+        measurement.name = measurementDto.name;
         measurement.labId = measurementDto.lab_id;
         measurement.userId = user.id;
         return measurement.save();
@@ -36,6 +37,7 @@ export class MeasurementService {
     async update(measurementDto: MeasurementDto): Promise<Measurement> {
         const measurement = await this.measurementModel.findOne({ where: { id: measurementDto.id } });
         measurement.result = measurementDto.result;
+        measurement.name = measurementDto.name;
         return measurement.save();
     }
 
