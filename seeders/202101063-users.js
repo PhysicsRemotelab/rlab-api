@@ -6,7 +6,6 @@ module.exports = {
       {
         name: 'admin',
         email: 'admin@remotelab.ee',
-        sub: 'auth0|5f9871f378f4b000768634fe',
         nickname: 'admin',
         picture: 'https://vignette.wikia.nocookie.net/fan-fiction-library/images/1/15/Admin.png/revision/latest?cb=20140917130743',
         last_login: new Date(),
@@ -16,7 +15,6 @@ module.exports = {
       {
         name: 'student',
         email: 'student@remotelab.ee',
-        sub: 'auth0|5f9871f378f4b000768634fe',
         nickname: 'student',
         picture: 'https://vignette.wikia.nocookie.net/fan-fiction-library/images/1/15/Admin.png/revision/latest?cb=20140917130743',
         last_login: new Date(),
