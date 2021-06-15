@@ -1,3 +1,9 @@
+## Before running application
+Get secret files from rlab-secrets repository
+```
+git clone git@github.com:PhysicsRemotelab/rlab-secrets.git
+```
+
 ## Commands
 * npm install
 * npm run start
