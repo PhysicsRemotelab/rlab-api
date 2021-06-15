@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { InjectModel } from '@nestjs/sequelize';
+import { Lab } from 'src/labs/lab.model';
 import { User } from 'src/users/user.model';
 import { MeasurementDto } from './measurement.dto';
 import { Measurement } from './measurements.model';
@@ -20,7 +21,10 @@ export class MeasurementService {
     async findAll(): Promise<Measurement[]> {
         const email = this.request.user['https://remotelab.ee/email'];
         const user = await this.userModel.findOne({ where: { email } });
-        return this.measurementModel.findAll({ where: { user_id: user.id } });
+        return this.measurementModel.findAll({
+            where: { user_id: user.id },
+            include: [{ model: User }, { model: Lab }]
+        });
     }
 
     async create(measurementDto: MeasurementDto): Promise<Measurement> {
