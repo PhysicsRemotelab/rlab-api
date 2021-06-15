@@ -51,8 +51,8 @@ export class LabsService {
     }
 
     async useLab(labDto: LabDto): Promise<Lab> {
-        const email = this.request.user['https://remotelab.ee/email'];
-        const user = await this.userModel.findOne({ where: { email } });
+        const sub = this.request.user.sub;
+        const user = await this.userModel.findOne({ where: { sub } });
         let labUserModel = await this.labUserModel.findOne({ where: { lab_id: labDto.id }});
         const lab = await this.labModel.findOne({ where: { id: labDto.id }, include: [{ model: User }] });
 
@@ -78,8 +78,8 @@ export class LabsService {
     }
 
     async freeLab(labDto: LabDto): Promise<Lab> {
-        const email = this.request.user['https://remotelab.ee/email'];
-        const user = await this.userModel.findOne({ where: { email } });
+        const sub = this.request.user.sub;
+        const user = await this.userModel.findOne({ where: { sub } });
         const labUserModel = await this.labUserModel.findOne({ where: { user_id: user.id, lab_id: labDto.id }});
 
         if(labUserModel) {

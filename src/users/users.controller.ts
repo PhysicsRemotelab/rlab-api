@@ -30,14 +30,14 @@ export class UsersController {
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('delete:users')
+    // @Permissions('delete:users')
     @Delete(':id')
     remove(@Param('id') id: string): Promise<number> {
         return this.usersService.remove(id);
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('update:users')
+    // @Permissions('update:users')
     @Put()
     update(@Body() userDto: UserDto): Promise<User> {
         return this.usersService.update(userDto);

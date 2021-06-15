@@ -14,6 +14,7 @@ export class LabsController {
     ) { }
 
     @Get()
+    // @Permissions('find:labs')
     findAll(): Promise<Lab[]> {
         return this.labsService.findAll();
     }
@@ -24,14 +25,14 @@ export class LabsController {
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('create:labs')
+    // @Permissions('create:labs')
     @Post()
     create(@Body() labDto: LabDto): Promise<Lab> {
         return this.labsService.create(labDto);
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('delete:labs')
+    // @Permissions('delete:labs')
     @Delete(':id')
     remove(@Param('id') id: string): Promise<number> {
         return this.labsService.remove(id);

@@ -11,6 +11,10 @@ export class UserDto {
 
     @IsString()
     @IsOptional()
+    sub?: string;
+
+    @IsString()
+    @IsOptional()
     email?: string;
 
     @IsString()

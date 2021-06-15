@@ -9,12 +9,6 @@ module.exports = {
         user_id: 1,
         taken_at: takenAt,
         taken_until: new Date(takenAt.getTime() + 60*60000)
-      },
-      {
-        lab_id: 2,
-        user_id: 2,
-        taken_at: takenAt,
-        taken_until: new Date(takenAt.getTime() + 60*60000)
       }
     ]);
   },

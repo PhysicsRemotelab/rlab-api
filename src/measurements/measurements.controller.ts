@@ -28,7 +28,7 @@ export class MeasurementController {
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Permissions('update:measurements')
+    // @Permissions('update:measurements')
     @Put()
     update(@Body() measurementDto: MeasurementDto): Promise<Measurement> {
         return this.measurementService.update(measurementDto);

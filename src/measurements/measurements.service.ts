@@ -19,8 +19,8 @@ export class MeasurementService {
     ) { }
 
     async findAll(): Promise<Measurement[]> {
-        const email = this.request.user['https://remotelab.ee/email'];
-        const user = await this.userModel.findOne({ where: { email } });
+        const sub = this.request.user.sub;
+        const user = await this.userModel.findOne({ where: { sub } });
         return this.measurementModel.findAll({
             where: { user_id: user.id },
             include: [{ model: User }, { model: Lab }]
@@ -28,8 +28,8 @@ export class MeasurementService {
     }
 
     async create(measurementDto: MeasurementDto): Promise<Measurement> {
-        const email = this.request.user['https://remotelab.ee/email'];
-        const user = await this.userModel.findOne({ where: { email } });
+        const sub = this.request.user.sub;
+        const user = await this.userModel.findOne({ where: { sub } });
         const measurement = new Measurement();
         measurement.result = measurementDto.result;
         measurement.name = measurementDto.name;
