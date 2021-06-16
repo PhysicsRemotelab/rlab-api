@@ -1,0 +1,10 @@
+{
+    "development": {
+        "username": "root",
+        "password": "strongpassword",
+        "database": "remotelabdb",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "migrationStorageTableName": "migrations"
+    }
+}
