@@ -27,7 +27,7 @@ module.exports = {
       {
         name: 'Temperature',
         description: 'Measure difference between heat camera and temperature sensor',
-        image: 'http://traveldave.com/wp-content/uploads/2010/02/thermalcat2_sm.jpg',
+        image: '/assets/lab4.png',
         created_at: new Date(),
         updated_at: new Date()
       },
