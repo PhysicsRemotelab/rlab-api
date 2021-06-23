@@ -31,6 +31,12 @@ http://localhost:4000/api/
 * npx sequelize-cli migration:generate --name migration-skeleton
 * npx sequelize-cli db:migrate
 
+# Setting up inital database
+Add root password in database
+```
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'strongpassword';
+```
+
 ## Additional reading
 * https://docs.nestjs.com/faq/multiple-servers
 * https://auth0.com/blog/developing-a-secure-api-with-nestjs-adding-role-based-access-control/
