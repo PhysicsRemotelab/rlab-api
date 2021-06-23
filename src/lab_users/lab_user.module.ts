@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { LabUser } from './lab_user.model';
+import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
+import { LabUserEntity } from './lab_user.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([LabUser])],
+  imports: [TypeOrmModule.forFeature([LabUserEntity])],
   providers: [],
   controllers: [],
 })

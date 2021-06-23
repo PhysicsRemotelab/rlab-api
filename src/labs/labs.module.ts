@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '@nestjs/sequelize';
 import { LabsService } from './labs.service';
 import { LabsController } from './labs.controller';
-import { Lab } from './lab.model';
-import { User } from 'src/users/user.model';
-import { LabUser } from 'src/lab_users/lab_user.model';
+import { LabEntity } from './lab.entity';
+import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
+import UserEntity from 'src/users/user.entity';
+import { LabUserEntity } from 'src/lab_users/lab_user.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Lab, User, LabUser])],
+  imports: [TypeOrmModule.forFeature([LabEntity, UserEntity, LabUserEntity])],
   providers: [LabsService],
   controllers: [LabsController]
 })

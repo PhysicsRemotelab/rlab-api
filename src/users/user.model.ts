@@ -1,8 +1,4 @@
 import { Column, DataType, Model, Table, BelongsToMany } from 'sequelize-typescript';
-import { Lab } from 'src/labs/lab.model';
-import { LabUser } from 'src/lab_users/lab_user.model';
-import { Role } from 'src/roles/role.model';
-import { UserRole } from 'src/user_roles/user_role.model';
 
 @Table({ tableName: 'users', timestamps: true })
 export class User extends Model {
@@ -33,10 +29,4 @@ export class User extends Model {
 
     @Column({ field: 'updated_at' })
     public updatedAt: Date;
-
-    @BelongsToMany(() => Lab, () => LabUser)
-    public labs?: Array<Lab & {lab_user: LabUser}>;
-
-    @BelongsToMany(() => Role, () => UserRole)
-    public roles?: Array<Role & {user_role: UserRole}>;
 }
