@@ -6,10 +6,6 @@ export class MeasurementEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column() 
-    @Generated('uuid') 
-    public uuid: string;
-
     @Column({ name: 'lab_id' })
     public labId: number;
 

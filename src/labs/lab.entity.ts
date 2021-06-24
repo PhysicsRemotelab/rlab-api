@@ -6,17 +6,13 @@ export class LabEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column() 
-    @Generated('uuid') 
-    public uuid: string;
-
     @Column({ length: 255, nullable: false })
     public name: string;
 
     @Column({ length: 255, nullable: true })
     public description: string;
 
-    @Column({ length: 255, nullable: true })
+    @Column({ length: 2000, nullable: true })
     public image: string;
 
     @Column({ name: 'is_disabled', type: 'boolean', default: false })

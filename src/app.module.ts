@@ -10,6 +10,11 @@ import { MeasurementEntity } from './measurements/measurement.entity';
 import { LabUserEntity } from './lab_users/lab_user.entity';
 import { RoleEntity } from './roles/role.entity';
 import { UserRoleEntity } from './user_roles/user_role.entity';
+import { MeasurementsModule } from './measurements/measurements.module';
+import { RolesModule } from './roles/roles.module';
+import { UserRolesModule } from './user_roles/user_role.module';
+import { LabUsersModule } from './lab_users/lab_user.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -30,12 +35,17 @@ import { UserRoleEntity } from './user_roles/user_role.entity';
           RoleEntity, 
           UserRoleEntity
         ],
-        synchronize: false
+        synchronize: true
       })
     }),
     CoreModule,
     AuthModule,
-    LabsModule
+    LabsModule,
+    MeasurementsModule,
+    RolesModule,
+    UserRolesModule,
+    LabUsersModule,
+    UsersModule
   ],
   controllers: [],
   providers: [],

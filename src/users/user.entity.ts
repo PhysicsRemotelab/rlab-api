@@ -6,10 +6,6 @@ export default class UserEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column() 
-    @Generated('uuid') 
-    public uuid: string;
-
     @Column({ length: 255, nullable: false })
     public name: string;
 
@@ -25,12 +21,12 @@ export default class UserEntity extends BaseEntity {
     @Column({ length: 255, nullable: false })
     public picture: string;
 
-    @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+    @Column({ name: 'last_login', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     public lastLogin: Date;
 
     @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     public createdAt: Date;
 
-    @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+    @Column({ name: 'updated_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     public updatedAt: Date;
 }
