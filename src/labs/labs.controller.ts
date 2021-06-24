@@ -21,10 +21,4 @@ export class LabsController {
     findOne(@Param('id') id: string): Promise<LabEntity> {
         return this.labsService.findOne(id);
     }
-
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-    @Put('/use')
-    useLab(@Body() labDto: LabDto): Promise<LabEntity> {
-        return this.labsService.useLab(labDto);
-    }
 }

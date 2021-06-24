@@ -1,36 +1,33 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
-import { InjectModel } from '@nestjs/sequelize';
-import { Lab } from 'src/labs/lab.model';
-import { User } from 'src/users/user.model';
+import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
+import { Repository } from 'typeorm/repository/Repository';
 import { MeasurementDto } from './measurement.dto';
-import { Measurement } from './measurements.model';
+import { MeasurementEntity } from './measurement.entity';
 
 @Injectable()
 export class MeasurementService {
 
     constructor(
-        @InjectModel(Measurement)
-        private readonly measurementModel: typeof Measurement,
-        @InjectModel(User)
-        private readonly userModel: typeof User,
+        @InjectRepository(MeasurementEntity)
+        private readonly measurementRepository: Repository<MeasurementEntity>,
         @Inject(REQUEST)
         private request
     ) { }
 
-    async findAll(): Promise<Measurement[]> {
+    async findAll(): Promise<MeasurementEntity[]> {
         const sub = this.request.user.sub;
         const user = await this.userModel.findOne({ where: { sub } });
-        return this.measurementModel.findAll({
+        return this.measurementRepository.findAll({
             where: { user_id: user.id },
             include: [{ model: User }, { model: Lab }]
         });
     }
 
-    async create(measurementDto: MeasurementDto): Promise<Measurement> {
+    async create(measurementDto: MeasurementDto): Promise<MeasurementEntity> {
         const sub = this.request.user.sub;
         const user = await this.userModel.findOne({ where: { sub } });
-        const measurement = new Measurement();
+        const measurement = new MeasurementEntity();
         measurement.result = measurementDto.result;
         measurement.name = measurementDto.name;
         measurement.labId = measurementDto.lab_id;
@@ -38,20 +35,13 @@ export class MeasurementService {
         return measurement.save();
     }
 
-    async update(measurementDto: MeasurementDto): Promise<Measurement> {
-        const measurement = await this.measurementModel.findOne({ where: { id: measurementDto.id } });
-        measurement.result = measurementDto.result;
-        measurement.name = measurementDto.name;
-        return measurement.save();
-    }
-
-    findOne(id: string): Promise<Measurement> {
-        return this.measurementModel.findOne({ where: { id } });
+    findOne(id: string): Promise<MeasurementEntity> {
+        return this.measurementRepository.findOne({ where: { id } });
     }
 
     async remove(id: string): Promise<number> {
-        const lab = await this.measurementModel.findOne({ where: { id } });
-        await lab.destroy();
+        const lab = await this.measurementRepository.findOne({ where: { id } });
+        await lab.remove();
         return 1;
     }
 }

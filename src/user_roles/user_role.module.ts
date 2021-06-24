@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { UserRole } from './user_role.model';
+import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
+import { UserRoleEntity } from './user_role.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([UserRole])],
+  imports: [TypeOrmModule.forFeature([UserRoleEntity])],
   providers: [],
   controllers: [],
 })
