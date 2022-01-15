@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  rlab-api:
+    container_name: rlab-api
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/home/node
+      - rlab-api_node_modules:/home/node/node_modules
+      - rlab-api_dist:/home/node/dist
+    command: npm run start:dev
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      NODE_ENV: ${NODE_ENV}
+    ports:
+      - "4000:4000"
+    depends_on:
+      - rlab-api-mysql
+    networks:
+      - rlab-api-network
+  rlab-api-mysql:
+    container_name: rlab-api-mysql
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - rlab-api_data:/var/lib/mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - rlab-api-network
+networks:
+  rlab-api-network:
+volumes:
+  rlab-api_node_modules:
+  rlab-api_dist:
+  rlab-api_data:

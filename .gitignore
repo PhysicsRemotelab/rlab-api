@@ -1,2 +1,4 @@
 /dist
 /node_modules
+.ash_history
+.npm

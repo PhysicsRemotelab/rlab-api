@@ -17,7 +17,7 @@ import { LabUsersModule } from './lab_users/lab_user.module';
       port: +process.env.DB_PORT,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
+      database: process.env.DB_DATABASE,
       autoLoadModels: true,
       synchronize: true
     }),
