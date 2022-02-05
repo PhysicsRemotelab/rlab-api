@@ -52,9 +52,3 @@ Use command to upgrade all dependencies
 ```
 ncu -u
 ```
-
-## Additional reading
-* https://docs.nestjs.com/faq/multiple-servers
-* https://auth0.com/blog/developing-a-secure-api-with-nestjs-adding-role-based-access-control/
-* https://blog.logrocket.com/containerized-development-nestjs-docker/
-* https://medium.com/better-programming/angular-building-a-crud-application-with-ngrx-40e5f1c0b50c
