@@ -31,7 +31,6 @@ import { LabUsersModule } from './lab_users/lab_user.module';
     LabUsersModule
   ],
   controllers: [],
-  providers: [],
+  providers: []
 })
-export class AppModule {
-}
+export class AppModule {}

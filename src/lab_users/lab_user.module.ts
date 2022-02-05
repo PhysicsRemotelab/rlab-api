@@ -5,6 +5,6 @@ import { LabUser } from './lab_user.model';
 @Module({
   imports: [SequelizeModule.forFeature([LabUser])],
   providers: [],
-  controllers: [],
+  controllers: []
 })
-export class LabUsersModule { }
+export class LabUsersModule {}

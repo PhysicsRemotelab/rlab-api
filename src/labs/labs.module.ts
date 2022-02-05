@@ -11,4 +11,4 @@ import { LabUser } from 'src/lab_users/lab_user.model';
   providers: [LabsService],
   controllers: [LabsController]
 })
-export class LabsModule { }
+export class LabsModule {}

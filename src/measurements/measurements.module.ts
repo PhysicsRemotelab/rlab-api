@@ -10,4 +10,4 @@ import { MeasurementService } from './measurements.service';
   providers: [MeasurementService],
   controllers: [MeasurementController]
 })
-export class MeasurementsModule { }
+export class MeasurementsModule {}

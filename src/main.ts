@@ -4,10 +4,10 @@ import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 const config = new DocumentBuilder()
-    .setTitle('Remote Lab API documentation')
-    .setDescription('Remote Lab API documentation')
-    .setVersion('1.0')
-    .build();
+  .setTitle('Remote Lab API documentation')
+  .setDescription('Remote Lab API documentation')
+  .setVersion('1.0')
+  .build();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

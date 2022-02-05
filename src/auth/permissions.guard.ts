@@ -4,12 +4,11 @@ import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
+  constructor(private readonly reflector: Reflector) {}
 
-  constructor(
-    private readonly reflector: Reflector
-  ) { }
-
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+  canActivate(
+    context: ExecutionContext
+  ): boolean | Promise<boolean> | Observable<boolean> {
     const routePermissions = this.reflector.get<string[]>(
       'permissions',
       context.getHandler()
@@ -22,8 +21,8 @@ export class PermissionsGuard implements CanActivate {
     }
 
     const hasPermission = () =>
-      routePermissions.every(routePermission =>
-        userPermissions.includes(routePermission),
+      routePermissions.every((routePermission) =>
+        userPermissions.includes(routePermission)
       );
 
     return hasPermission();
