@@ -1,7 +1,7 @@
 {
     "development": {
-        "username": "rlab-user",
-        "password": "rlab-password",
+        "username": "root",
+        "password": "strongpassword",
         "database": "remotelabdb",
         "host": "rlab-api-mysql",
         "port": "3306",

@@ -4,7 +4,6 @@ import { User } from './user.model';
 import { UserDto } from './user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { PermissionsGuard } from 'src/auth/permissions.guard';
-import { Permissions } from '../auth/permissions.decorator';
 
 @Controller('users')
 export class UsersController {

@@ -4,7 +4,6 @@ import { PermissionsGuard } from 'src/auth/permissions.guard';
 import { MeasurementDto } from './measurement.dto';
 import { Measurement } from './measurements.model';
 import { MeasurementService } from './measurements.service';
-import { Permissions } from '../auth/permissions.decorator';
 
 @Controller('measurements')
 export class MeasurementController {

@@ -4,7 +4,6 @@ import { Lab } from './lab.model';
 import { LabDto } from './lab.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { PermissionsGuard } from 'src/auth/permissions.guard';
-import { Permissions } from '../auth/permissions.decorator';
 
 @Controller('labs')
 export class LabsController {
