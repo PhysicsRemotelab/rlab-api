@@ -52,8 +52,3 @@ Use command to upgrade all dependencies
 ```
 ncu -u
 ```
-
-Enable git hooks
-```
-git config --local core.hooksPath .githooks/
-```
