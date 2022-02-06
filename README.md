@@ -52,3 +52,8 @@ Use command to upgrade all dependencies
 ```
 ncu -u
 ```
+
+Use Docker
+```
+docker-compose up -d
+```
