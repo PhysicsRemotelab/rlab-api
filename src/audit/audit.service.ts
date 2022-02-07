@@ -8,7 +8,7 @@ import { AuditEntity } from './audit.model';
 export class AuditService {
   constructor(
     @InjectRepository(AuditEntity)
-    private readonly auditRepository: Repository<AuditEntity>,
+    private readonly auditRepository: Repository<AuditEntity>
   ) {}
 
   public async findAll(): Promise<AuditEntity[]> {

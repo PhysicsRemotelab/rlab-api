@@ -1,13 +1,8 @@
-import {
-  Body,
-    Controller,
-    Get,
-    Post,
-  } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuditDto } from './audit.dto';
 import { AuditEntity } from './audit.model';
 import { AuditService } from './audit.service';
-  
+
 @Controller('audit')
 export class AuditController {
   constructor(private readonly auditService: AuditService) {}
