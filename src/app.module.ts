@@ -8,9 +8,24 @@ import { MeasurementsModule } from './measurements/measurements.module';
 import { RolesModule } from './roles/roles.module';
 import { UserRolesModule } from './user_roles/user_role.module';
 import { LabUsersModule } from './lab_users/lab_user.module';
+import { AuditModule } from './audit/audit.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuditEntity } from './audit/audit.model';
 
 @Module({
   imports: [
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'mysql',
+        host: process.env.DB_HOST,
+        port: +process.env.DB_PORT,
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        entities: [AuditEntity],
+        synchronize: true
+      })
+    }),
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: process.env.DB_HOST,
@@ -28,7 +43,8 @@ import { LabUsersModule } from './lab_users/lab_user.module';
     UsersModule,
     RolesModule,
     UserRolesModule,
-    LabUsersModule
+    LabUsersModule,
+    AuditModule
   ],
   controllers: [],
   providers: []
