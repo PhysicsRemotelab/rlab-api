@@ -18,7 +18,10 @@ export class AuditService {
   }
 
   public async findOne(id: number): Promise<AuditEntity> {
-    return await this.entityManager.query('SELECT * FROM audit WHERE audit.id = ?', [id]);
+    return await this.entityManager.query(
+      'SELECT * FROM audit WHERE audit.id = ?',
+      [id]
+    );
   }
 
   async create(auditDto: AuditDto): Promise<AuditEntity> {
