@@ -8,6 +8,9 @@ export class AuditEntity extends BaseEntity {
   @Column({ name: 'type' })
   public type: string;
 
+  @Column({ name: 'user_id' })
+  public userId: number;
+
   @Column({
     name: 'created_at',
     type: 'timestamp',
