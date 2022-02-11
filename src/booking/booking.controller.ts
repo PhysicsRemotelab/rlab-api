@@ -8,7 +8,10 @@ export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
   @Get()
-  findOne(@Query('user_id') userId: number, @Query('lab_id') labId: number): Promise<Booking> {
+  findOne(
+    @Query('user_id') userId: number,
+    @Query('lab_id') labId: number
+  ): Promise<Booking> {
     return this.bookingService.getBooking(userId, labId);
   }
 

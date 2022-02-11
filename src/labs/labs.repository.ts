@@ -7,11 +7,12 @@ export class LabRepository {
   constructor(private readonly entityManager: EntityManager) {}
 
   public async findAll(): Promise<Lab[]> {
-      return await this.entityManager.query('SELECT * FROM labs');
+    return await this.entityManager.query('SELECT * FROM labs');
   }
 
   public async findOne(id: number): Promise<Lab> {
-    return await this.entityManager.query('SELECT * FROM labs WHERE id = ?', [id]);
-}
-
+    return await this.entityManager.query('SELECT * FROM labs WHERE id = ?', [
+      id
+    ]);
+  }
 }

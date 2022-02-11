@@ -1,8 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param
-} from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { LabsService } from './labs.service';
 import { Lab } from './lab.model';
 

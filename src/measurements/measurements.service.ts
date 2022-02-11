@@ -27,6 +27,6 @@ export class MeasurementService {
   }
 
   async remove(id: number): Promise<Measurement> {
-    return this.measurementRepository.delete(id);;
+    return this.measurementRepository.delete(id);
   }
 }

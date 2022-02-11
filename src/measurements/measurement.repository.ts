@@ -8,13 +8,16 @@ export class MeasurementRepository {
   constructor(private readonly entityManager: EntityManager) {}
 
   public async findAll(userId: number): Promise<Measurement[]> {
-      return await this.entityManager.query(
-        'SELECT * FROM measurements WHERE user_id = ?',
-        [userId]
-      );
+    return await this.entityManager.query(
+      'SELECT * FROM measurements WHERE user_id = ?',
+      [userId]
+    );
   }
 
-  public async create(measurementDto: MeasurementDto, userId: number): Promise<Measurement> {
+  public async create(
+    measurementDto: MeasurementDto,
+    userId: number
+  ): Promise<Measurement> {
     const measurement = new Measurement();
     measurement.result = measurementDto.result;
     measurement.name = measurementDto.name;
@@ -29,5 +32,4 @@ export class MeasurementRepository {
       [id]
     );
   }
-
 }

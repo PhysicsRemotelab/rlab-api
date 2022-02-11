@@ -1,9 +1,4 @@
-import {
-  Body,
-  Controller,
-  Post,
-  UseGuards
-} from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.model';
 import { UserDto } from './user.dto';
@@ -19,5 +14,4 @@ export class UsersController {
   create(@Body() userDto: UserDto): Promise<User> {
     return this.usersService.create(userDto);
   }
-
 }
