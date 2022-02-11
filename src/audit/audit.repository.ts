@@ -5,9 +5,7 @@ import { AuditEntity } from './audit.model';
 
 @Injectable()
 export class AuditRepository {
-  constructor(
-    private readonly entityManager: EntityManager
-  ) {}
+  constructor(private readonly entityManager: EntityManager) {}
 
   public async findAll(): Promise<AuditEntity[]> {
     return await this.entityManager.query('SELECT * FROM audit');

@@ -5,9 +5,7 @@ import { AuditRepository } from './audit.repository';
 
 @Injectable()
 export class AuditService {
-  constructor(
-    private readonly auditRepository: AuditRepository
-  ) {}
+  constructor(private readonly auditRepository: AuditRepository) {}
 
   public findAll(): Promise<AuditEntity[]> {
     return this.auditRepository.findAll();
