@@ -1,47 +1,33 @@
-import {
-  Column,
-  DataType,
-  ForeignKey,
-  Model,
-  Table,
-  BelongsTo
-} from 'sequelize-typescript';
-import { Lab } from 'src/labs/lab.model';
-import { User } from 'src/users/user.model';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Table({ tableName: 'measurements', timestamps: true })
-export class Measurement extends Model {
-  @Column({
-    field: 'id',
-    primaryKey: true,
-    autoIncrement: true,
-    type: DataType.INTEGER
-  })
+@Entity('measurements')
+export class Measurement extends BaseEntity {
+  @PrimaryGeneratedColumn()
   public id: number;
 
-  @ForeignKey(() => Lab)
-  @Column({ field: 'lab_id', type: DataType.INTEGER })
-  public labId: number;
-
-  @ForeignKey(() => User)
-  @Column({ field: 'user_id', type: DataType.INTEGER })
-  public userId: number;
-
-  @Column({ field: 'result', type: DataType.STRING(10000) })
-  public result: string;
-
-  @Column({ field: 'name', type: DataType.STRING(256) })
+  @Column({ name: 'name' })
   public name: string;
 
-  @Column({ field: 'created_at' })
-  public createdAt: Date;
+  @Column({ name: 'result' })
+  public result: string;
 
-  @Column({ field: 'updated_at' })
-  public updatedAt: Date;
+  @Column({ name: 'lab_id' })
+  public lab_id: number;
 
-  @BelongsTo(() => User)
-  public user: User;
+  @Column({ name: 'user_id' })
+  public user_id: number;
 
-  @BelongsTo(() => Lab)
-  public lab: Lab;
+  @Column({
+    name: 'created_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP'
+  })
+  public created_at: Date;
+
+  @Column({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP'
+  })
+  public updated_at: Date;
 }

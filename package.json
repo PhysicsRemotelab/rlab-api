@@ -18,7 +18,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "seed": "sequelize-cli db:seed:all"
+    "seed": "ts-node ./node_modules/typeorm/cli.js migration:run"
   },
   "pre-commit": [
     "format",
@@ -30,7 +30,6 @@
     "@nestjs/core": "^8.2.6",
     "@nestjs/passport": "^8.1.0",
     "@nestjs/platform-express": "^8.2.6",
-    "@nestjs/sequelize": "^8.0.0",
     "@nestjs/swagger": "^5.2.0",
     "@nestjs/typeorm": "^8.0.3",
     "class-transformer": "^0.5.1",
@@ -43,8 +42,6 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.2",
-    "sequelize": "^6.15.0",
-    "sequelize-typescript": "^2.1.2",
     "swagger-ui-express": "^4.3.0",
     "typeorm": "^0.2.41"
   },
@@ -52,7 +49,6 @@
     "@nestjs/cli": "^8.2.0",
     "@nestjs/schematics": "^8.0.5",
     "@types/node": "^17.0.14",
-    "@types/sequelize": "^4.28.11",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
     "eslint": "^8.8.0",
@@ -60,8 +56,6 @@
     "eslint-plugin-import": "^2.25.4",
     "pre-commit": "^1.2.2",
     "prettier": "^2.5.1",
-    "sequelize-cli": "^6.4.1",
-    "sequelize-typescript-migration": "0.0.1-beta.3",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.12.0",

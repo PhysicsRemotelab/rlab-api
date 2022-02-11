@@ -1,52 +1,45 @@
-import {
-  Column,
-  DataType,
-  Model,
-  Table,
-  BelongsToMany
-} from 'sequelize-typescript';
-import { Lab } from 'src/labs/lab.model';
-import { LabUser } from 'src/lab_users/lab_user.model';
-import { Role } from 'src/roles/role.model';
-import { UserRole } from 'src/user_roles/user_role.model';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Table({ tableName: 'users', timestamps: true })
-export class User extends Model {
-  @Column({
-    field: 'id',
-    primaryKey: true,
-    autoIncrement: true,
-    type: DataType.INTEGER
-  })
+@Entity('users')
+export class User extends BaseEntity {
+  @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ field: 'name', type: DataType.STRING(255) })
+  @Column({ name: 'name' })
   public name: string;
 
-  @Column({ field: 'email', type: DataType.STRING(255) })
+  @Column({ name: 'email' })
   public email: string;
 
-  @Column({ field: 'sub', type: DataType.STRING(255) })
+  @Column({ name: 'sub' })
   public sub: string;
 
-  @Column({ field: 'nickname', type: DataType.STRING(255) })
+  @Column({ name: 'role' })
+  public role: string;
+
+  @Column({ name: 'nickname' })
   public nickname: string;
 
-  @Column({ field: 'picture', type: DataType.STRING(255) })
+  @Column({ name: 'picture' })
   public picture: string;
 
-  @Column({ field: 'last_login' })
-  public lastLogin: Date;
+  @Column({
+    name: 'last_login',
+    type: 'timestamp'
+  })
+  public last_login: Date;
 
-  @Column({ field: 'created_at' })
-  public createdAt: Date;
+  @Column({
+    name: 'created_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP'
+  })
+  public created_at: Date;
 
-  @Column({ field: 'updated_at' })
-  public updatedAt: Date;
-
-  @BelongsToMany(() => Lab, () => LabUser)
-  public labs?: Array<Lab & { lab_user: LabUser }>;
-
-  @BelongsToMany(() => Role, () => UserRole)
-  public roles?: Array<Role & { user_role: UserRole }>;
+  @Column({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP'
+  })
+  public updated_at: Date;
 }

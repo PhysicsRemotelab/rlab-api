@@ -1,41 +1,33 @@
-import {
-  Column,
-  DataType,
-  Model,
-  Table,
-  BelongsToMany
-} from 'sequelize-typescript';
-import { LabUser } from 'src/lab_users/lab_user.model';
-import { User } from 'src/users/user.model';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Table({ tableName: 'labs', timestamps: true })
-export class Lab extends Model {
-  @Column({
-    field: 'id',
-    primaryKey: true,
-    autoIncrement: true,
-    type: DataType.INTEGER
-  })
+@Entity('labs')
+export class Lab extends BaseEntity {
+  @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ field: 'name', type: DataType.STRING(100) })
+  @Column({ name: 'name' })
   public name: string;
 
-  @Column({ field: 'description', type: DataType.STRING(200) })
+  @Column({ name: 'description' })
   public description: string;
 
-  @Column({ field: 'image', type: DataType.STRING(2000) })
+  @Column({ name: 'image' })
   public image: string;
 
-  @Column({ field: 'is_disabled', type: DataType.BOOLEAN })
-  public isDisabled: boolean;
+  @Column({ name: 'is_disabled' })
+  public is_disabled?: boolean;
 
-  @Column({ field: 'created_at' })
-  public createdAt: Date;
+  @Column({
+    name: 'created_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP'
+  })
+  public created_at: Date;
 
-  @Column({ field: 'updated_at' })
-  public updatedAt: Date;
-
-  @BelongsToMany(() => User, () => LabUser)
-  public users?: Array<User & { lab_user: LabUser }>;
+  @Column({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP'
+  })
+  public updated_at: Date;
 }

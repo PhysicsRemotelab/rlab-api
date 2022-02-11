@@ -27,5 +27,9 @@ export class UserDto {
 
   @IsString()
   @IsOptional()
+  role?: string;
+
+  @IsString()
+  @IsOptional()
   picture?: string;
 }

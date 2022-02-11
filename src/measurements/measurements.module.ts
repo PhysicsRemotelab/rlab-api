@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { User } from 'src/users/user.model';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserRepository } from 'src/users/users.repository';
+import { MeasurementRepository } from './measurement.repository';
 import { MeasurementController } from './measurements.controller';
 import { Measurement } from './measurements.model';
 import { MeasurementService } from './measurements.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Measurement, User])],
-  providers: [MeasurementService],
+  imports: [TypeOrmModule.forFeature([Measurement])],
+  providers: [MeasurementService, MeasurementRepository, UserRepository],
   controllers: [MeasurementController]
 })
 export class MeasurementsModule {}
