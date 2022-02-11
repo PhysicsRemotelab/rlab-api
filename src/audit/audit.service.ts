@@ -1,32 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { getManager, Repository } from 'typeorm';
 import { AuditDto } from './audit.dto';
 import { AuditEntity } from './audit.model';
+import { AuditRepository } from './audit.repository';
 
 @Injectable()
 export class AuditService {
   constructor(
-    @InjectRepository(AuditEntity)
-    private readonly auditRepository: Repository<AuditEntity>
+    private readonly auditRepository: AuditRepository
   ) {}
 
-  private entityManager = getManager();
-
-  public async findAll(): Promise<AuditEntity[]> {
-    return await this.entityManager.query('SELECT * FROM audit');
+  public findAll(): Promise<AuditEntity[]> {
+    return this.auditRepository.findAll();
   }
 
-  public async findOne(id: number): Promise<AuditEntity> {
-    return await this.entityManager.query(
-      'SELECT * FROM audit WHERE audit.id = ?',
-      [id]
-    );
+  public findOne(id: number): Promise<AuditEntity> {
+    return this.auditRepository.findOne(id);
   }
 
-  async create(auditDto: AuditDto): Promise<AuditEntity> {
-    const audit = new AuditEntity();
-    audit.type = auditDto.type;
-    return audit.save();
+  public create(auditDto: AuditDto): Promise<AuditEntity> {
+    return this.auditRepository.create(auditDto);
   }
 }
