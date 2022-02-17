@@ -25,7 +25,8 @@ export class User extends BaseEntity {
 
   @Column({
     name: 'last_login',
-    type: 'timestamp'
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP'
   })
   public last_login: Date;
 
