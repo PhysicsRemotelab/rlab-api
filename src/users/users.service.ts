@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { UserDto } from './user.dto';
 import { User } from './user.model';
-import { getRepository, getConnection } from "typeorm";
+import { getRepository, getConnection } from 'typeorm';
 
 @Injectable()
 export class UsersService {
@@ -12,7 +12,9 @@ export class UsersService {
   ) {}
 
   async create(userDto: UserDto): Promise<User> {
-    const user = await getRepository(User).findOne({ where: { email: userDto.email } });
+    const user = await getRepository(User).findOne({
+      where: { email: userDto.email }
+    });
 
     if (user) {
       user.last_login = new Date();
@@ -21,7 +23,7 @@ export class UsersService {
         .createQueryBuilder()
         .update(User)
         .set({ last_login: new Date(), sub: this.request.user.sub })
-        .where("id = :id", { id: user.id })
+        .where('id = :id', { id: user.id })
         .execute();
     }
 

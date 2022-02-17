@@ -13,12 +13,12 @@ export class BookingService {
     private request
   ) {}
 
-  public async create(bookingDto: BookingDto): Promise<Lab|string> {
+  public async create(bookingDto: BookingDto): Promise<Lab | string> {
     const isAvailable = await this.isLabAvailable(bookingDto.lab_id);
     if (!isAvailable) {
       return 'Not available';
     }
-  
+
     const sub = this.request.user.sub;
     const user = await getRepository(User).findOne({ where: { sub: sub } });
 
@@ -37,27 +37,26 @@ export class BookingService {
   }
 
   public async getLabBooking(labId: number): Promise<Booking> {
-    const booking = await getRepository(Booking).findOne({ where: 
-      { 
+    const booking = await getRepository(Booking).findOne({
+      where: {
         lab_id: labId,
         taken_until: MoreThan(new Date()),
         is_cancelled: 0
-      } 
+      }
     });
     return booking;
   }
 
-
   private async isLabAvailable(labId: number): Promise<boolean> {
     const sub = this.request.user.sub;
     const user = await getRepository(User).findOne({ where: { sub: sub } });
-    const labs = await getRepository(Booking).find({ where: 
-      { 
+    const labs = await getRepository(Booking).find({
+      where: {
         lab_id: labId,
         user_id: Not(user.id),
         taken_until: MoreThan(new Date()),
         is_cancelled: 0
-      } 
+      }
     });
     return labs.length === 0;
   }

@@ -16,7 +16,9 @@ export class MeasurementService {
   async findAll(): Promise<Measurement[]> {
     const sub = this.request.user.sub;
     const user = await getRepository(User).findOne({ where: { sub: sub } });
-    return await getRepository(Measurement).find({ where: { user_id: user.id } });
+    return await getRepository(Measurement).find({
+      where: { user_id: user.id }
+    });
   }
 
   async create(measurementDto: MeasurementDto): Promise<Measurement> {

@@ -12,7 +12,7 @@ export class BookingController {
 
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
   @Post()
-  create(@Body() bookingDto: BookingDto): Promise<Lab|string> {
+  create(@Body() bookingDto: BookingDto): Promise<Lab | string> {
     return this.bookingService.create(bookingDto);
   }
 

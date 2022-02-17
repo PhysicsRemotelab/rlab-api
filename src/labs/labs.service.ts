@@ -4,7 +4,6 @@ import { Lab } from './lab.model';
 
 @Injectable()
 export class LabsService {
-
   async findAll(): Promise<Lab[]> {
     const labs = await getRepository(Lab).find();
     return labs;
