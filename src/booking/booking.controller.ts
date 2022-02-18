@@ -16,8 +16,15 @@ export class BookingController {
     return this.bookingService.create(bookingDto);
   }
 
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
   @Get(':id')
   check(@Param('id') labId: number): Promise<Booking> {
     return this.bookingService.getLabBooking(labId);
+  }
+
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+  @Get('cancel/:id')
+  cancel(@Param('id') labId: number): Promise<void> {
+    return this.bookingService.cancelLabBooking(labId);
   }
 }

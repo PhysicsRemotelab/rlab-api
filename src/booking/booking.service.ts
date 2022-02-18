@@ -3,7 +3,7 @@ import { REQUEST } from '@nestjs/core';
 import { User } from 'src/users/user.model';
 import { BookingDto } from './booking.dto';
 import { Booking } from './booking.model';
-import { getRepository, MoreThan, Not } from 'typeorm';
+import { getConnection, getRepository, MoreThan, Not } from 'typeorm';
 import { Lab } from 'src/labs/lab.model';
 
 @Injectable()
@@ -59,5 +59,19 @@ export class BookingService {
       }
     });
     return labs.length === 0;
+  }
+
+  public async cancelLabBooking(labId: number): Promise<void> {
+    console.log('cancel ', labId);
+    console.log(this.request.user_id);
+    const sub = this.request.user.sub;
+    const user = await getRepository(User).findOne({ where: { sub: sub } });
+    await getConnection()
+      .createQueryBuilder()
+      .update(Booking)
+      .set({ is_cancelled: true })
+      .where('user_id = :user_id and lab_id = :lab_id', { user_id: user.id, lab_id: labId })
+      .execute();
+    return;
   }
 }
