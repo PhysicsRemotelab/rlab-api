@@ -70,7 +70,10 @@ export class BookingService {
       .createQueryBuilder()
       .update(Booking)
       .set({ is_cancelled: true })
-      .where('user_id = :user_id and lab_id = :lab_id', { user_id: user.id, lab_id: labId })
+      .where('user_id = :user_id and lab_id = :lab_id', {
+        user_id: user.id,
+        lab_id: labId
+      })
       .execute();
     return;
   }
