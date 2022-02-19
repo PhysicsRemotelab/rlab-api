@@ -31,11 +31,11 @@ import { BullModule } from '@nestjs/bull';
     BullModule.forRoot({
       redis: {
         host: 'localhost',
-        port: 4002,
-      },
+        port: 4002
+      }
     }),
     BullModule.registerQueue({
-      name:'message-queue'
+      name: 'message-queue'
     }),
     AuthModule,
     UsersModule,
