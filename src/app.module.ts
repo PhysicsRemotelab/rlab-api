@@ -12,6 +12,7 @@ import { Booking } from './booking/booking.model';
 import { Measurement } from './measurements/measurements.model';
 import { Lab } from './labs/lab.model';
 import { UsersModule } from './users/users.module';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -26,6 +27,15 @@ import { UsersModule } from './users/users.module';
         entities: [Audit, User, Booking, Measurement, Lab],
         synchronize: true
       })
+    }),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 4002,
+      },
+    }),
+    BullModule.registerQueue({
+      name:'message-queue'
     }),
     AuthModule,
     UsersModule,

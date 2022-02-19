@@ -57,3 +57,9 @@ Use Docker
 ```
 docker-compose up -d
 ```
+
+Create database user and grant permissions
+```
+CREATE USER 'remotelabuser' IDENTIFIED WITH mysql_native_password BY 'strongpassword';
+GRANT ALL PRIVILEGES ON *.* TO 'remotelabuser'@'%';
+````
