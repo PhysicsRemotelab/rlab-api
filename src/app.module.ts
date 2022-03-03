@@ -13,6 +13,9 @@ import { Measurement } from './measurements/measurements.model';
 import { Lab } from './labs/lab.model';
 import { UsersModule } from './users/users.module';
 import { BullModule } from '@nestjs/bull';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [

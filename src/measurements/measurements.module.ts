@@ -7,6 +7,7 @@ import { MeasurementService } from './measurements.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Measurement])],
   providers: [MeasurementService],
-  controllers: [MeasurementController]
+  controllers: [MeasurementController],
+  exports: [MeasurementService]
 })
 export class MeasurementsModule {}
