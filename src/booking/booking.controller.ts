@@ -8,23 +8,23 @@ import { BookingService } from './booking.service';
 
 @Controller('booking')
 export class BookingController {
-  constructor(private readonly bookingService: BookingService) {}
+    constructor(private readonly bookingService: BookingService) {}
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-  @Post()
-  create(@Body() bookingDto: BookingDto): Promise<Lab | string> {
-    return this.bookingService.create(bookingDto);
-  }
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Post()
+    create(@Body() bookingDto: BookingDto): Promise<Lab | string> {
+        return this.bookingService.create(bookingDto);
+    }
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-  @Get(':id')
-  check(@Param('id') labId: number): Promise<Booking> {
-    return this.bookingService.getLabBooking(labId);
-  }
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Get(':id')
+    check(@Param('id') labId: number): Promise<Booking> {
+        return this.bookingService.getLabBooking(labId);
+    }
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-  @Get('cancel/:id')
-  cancel(@Param('id') labId: number): Promise<void> {
-    return this.bookingService.cancelLabBooking(labId);
-  }
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Get('cancel/:id')
+    cancel(@Param('id') labId: number): Promise<void> {
+        return this.bookingService.cancelLabBooking(labId);
+    }
 }

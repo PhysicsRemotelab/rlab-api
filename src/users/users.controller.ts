@@ -7,11 +7,11 @@ import { PermissionsGuard } from 'src/auth/permissions.guard';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
-  @Post()
-  create(@Body() userDto: UserDto): Promise<User> {
-    return this.usersService.create(userDto);
-  }
+    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @Post()
+    create(@Body() userDto: UserDto): Promise<User> {
+        return this.usersService.create(userDto);
+    }
 }

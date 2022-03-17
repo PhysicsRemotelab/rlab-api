@@ -18,37 +18,37 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 @Module({
-  imports: [
-    TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        type: 'mysql',
-        host: process.env.DB_HOST,
-        port: +process.env.DB_PORT,
-        username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_DATABASE,
-        entities: [Audit, User, Booking, Measurement, Lab],
-        synchronize: true
-      })
-    }),
-    BullModule.forRoot({
-      redis: {
-        host: 'localhost',
-        port: 4002
-      }
-    }),
-    BullModule.registerQueue({
-      name: 'message-queue'
-    }),
-    AuthModule,
-    UsersModule,
-    CoreModule,
-    LabsModule,
-    MeasurementsModule,
-    BookingModule,
-    AuditModule
-  ],
-  controllers: [],
-  providers: []
+    imports: [
+        TypeOrmModule.forRootAsync({
+            useFactory: () => ({
+                type: 'mysql',
+                host: process.env.DB_HOST,
+                port: +process.env.DB_PORT,
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_DATABASE,
+                entities: [Audit, User, Booking, Measurement, Lab],
+                synchronize: true
+            })
+        }),
+        BullModule.forRoot({
+            redis: {
+                host: 'localhost',
+                port: 4002
+            }
+        }),
+        BullModule.registerQueue({
+            name: 'message-queue'
+        }),
+        AuthModule,
+        UsersModule,
+        CoreModule,
+        LabsModule,
+        MeasurementsModule,
+        BookingModule,
+        AuditModule
+    ],
+    controllers: [],
+    providers: []
 })
 export class AppModule {}

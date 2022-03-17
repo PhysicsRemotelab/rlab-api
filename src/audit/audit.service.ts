@@ -5,17 +5,17 @@ import { AuditRepository } from './audit.repository';
 
 @Injectable()
 export class AuditService {
-  constructor(private readonly auditRepository: AuditRepository) {}
+    constructor(private readonly auditRepository: AuditRepository) {}
 
-  public findAll(): Promise<Audit[]> {
-    return this.auditRepository.findAll();
-  }
+    public findAll(): Promise<Audit[]> {
+        return this.auditRepository.findAll();
+    }
 
-  public findOne(id: number): Promise<Audit> {
-    return this.auditRepository.findOne(id);
-  }
+    public findOne(id: number): Promise<Audit> {
+        return this.auditRepository.findOne(id);
+    }
 
-  public create(auditDto: AuditDto): Promise<Audit> {
-    return this.auditRepository.create(auditDto);
-  }
+    public create(auditDto: AuditDto): Promise<Audit> {
+        return this.auditRepository.create(auditDto);
+    }
 }

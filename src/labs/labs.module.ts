@@ -5,9 +5,9 @@ import { Lab } from './lab.model';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Lab])],
-  providers: [LabsService],
-  controllers: [LabsController],
-  exports: [LabsService]
+    imports: [TypeOrmModule.forFeature([Lab])],
+    providers: [LabsService],
+    controllers: [LabsController],
+    exports: [LabsService]
 })
 export class LabsModule {}

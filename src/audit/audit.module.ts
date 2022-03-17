@@ -6,8 +6,8 @@ import { AuditRepository } from './audit.repository';
 import { AuditService } from './audit.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Audit])],
-  providers: [AuditService, AuditRepository],
-  controllers: [AuditController]
+    imports: [TypeOrmModule.forFeature([Audit])],
+    providers: [AuditService, AuditRepository],
+    controllers: [AuditController]
 })
 export class AuditModule {}

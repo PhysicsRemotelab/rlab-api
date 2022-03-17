@@ -4,7 +4,7 @@ jobs:
   lint:
     name: Running ESLint
     runs-on: ubuntu-20.04
-    if: github.head_ref != 'master' && github.head_ref != 'demo'
+    if: github.head_ref != 'master'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
