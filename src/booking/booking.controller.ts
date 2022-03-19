@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { PermissionsGuard } from 'src/auth/permissions.guard';
-import { Lab } from 'src/labs/lab.model';
+import { LabEntity } from 'src/labs/lab.entity';
 import { BookingDto } from './booking.dto';
-import { Booking } from './booking.model';
+import { BookingEntity } from './booking.entity';
 import { BookingService } from './booking.service';
 
 @Controller('booking')
@@ -12,13 +12,13 @@ export class BookingController {
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Post()
-    create(@Body() bookingDto: BookingDto): Promise<Lab | string> {
+    create(@Body() bookingDto: BookingDto): Promise<LabEntity | string> {
         return this.bookingService.create(bookingDto);
     }
 
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Get(':id')
-    check(@Param('id') labId: number): Promise<Booking> {
+    check(@Param('id') labId: number): Promise<BookingEntity> {
         return this.bookingService.getLabBooking(labId);
     }
 

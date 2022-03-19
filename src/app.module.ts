@@ -7,10 +7,10 @@ import { BookingModule } from './booking/booking.module';
 import { AuditModule } from './audit/audit.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Audit } from './audit/audit.model';
-import { User } from './users/user.model';
-import { Booking } from './booking/booking.model';
-import { Measurement } from './measurements/measurements.model';
-import { Lab } from './labs/lab.model';
+import { UserEntity } from './users/user.entity';
+import { BookingEntity } from './booking/booking.entity';
+import { MeasurementEntity } from './measurements/measurements.entity';
+import { LabEntity } from './labs/lab.entity';
 import { UsersModule } from './users/users.module';
 import { BullModule } from '@nestjs/bull';
 import * as dotenv from 'dotenv';
@@ -27,7 +27,7 @@ dotenv.config();
                 username: process.env.DB_USERNAME,
                 password: process.env.DB_PASSWORD,
                 database: process.env.DB_DATABASE,
-                entities: [Audit, User, Booking, Measurement, Lab],
+                entities: [Audit, UserEntity, BookingEntity, MeasurementEntity, LabEntity],
                 synchronize: true
             })
         }),

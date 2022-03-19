@@ -1,26 +1,26 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
-import { User } from 'src/users/user.model';
+import { UserEntity } from 'src/users/user.entity';
 import { BookingDto } from './booking.dto';
-import { Booking } from './booking.model';
+import { BookingEntity } from './booking.entity';
 import { LessThan, MoreThan, Not, Repository } from 'typeorm';
-import { Lab } from 'src/labs/lab.model';
+import { LabEntity } from 'src/labs/lab.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class BookingService {
     constructor(
-        @InjectRepository(Booking)
-        private bookingRepository: Repository<Booking>,
-        @InjectRepository(User)
-        private userRepository: Repository<User>,
-        @InjectRepository(Lab)
-        private labRepository: Repository<Lab>,
+        @InjectRepository(BookingEntity)
+        private bookingRepository: Repository<BookingEntity>,
+        @InjectRepository(UserEntity)
+        private userRepository: Repository<UserEntity>,
+        @InjectRepository(LabEntity)
+        private labRepository: Repository<LabEntity>,
         @Inject(REQUEST)
         private request
     ) {}
 
-    public async create(bookingDto: BookingDto): Promise<Lab | string> {
+    public async create(bookingDto: BookingDto): Promise<LabEntity | string> {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
@@ -29,18 +29,18 @@ export class BookingService {
             return 'Not available';
         }
 
-        let booking = new Booking();
+        let booking = new BookingEntity();
         booking.lab_id = bookingDto.lab_id;
         booking.user_id = user.id;
         booking.is_cancelled = false;
-        booking.taken_at = new Date();
+        booking.taken_from = new Date();
         booking.taken_until = new Date(new Date().getTime() + 60 * 60 * 1000);
         booking = await booking.save();
 
         return await this.labRepository.findOne(bookingDto.lab_id);
     }
 
-    public async getLabBooking(labId: number): Promise<Booking> {
+    public async getLabBooking(labId: number): Promise<BookingEntity> {
         const booking = await this.bookingRepository.findOne({
             where: {
                 lab_id: labId,

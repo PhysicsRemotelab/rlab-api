@@ -1,18 +1,18 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { LabsService } from './labs.service';
-import { Lab } from './lab.model';
+import { LabEntity } from './lab.entity';
 
 @Controller('labs')
 export class LabsController {
     constructor(private readonly labsService: LabsService) {}
 
     @Get()
-    findAll(): Promise<Lab[]> {
+    findAll(): Promise<LabEntity[]> {
         return this.labsService.findAll();
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: number): Promise<Lab> {
-        return this.labsService.findOne(id);
+    @Get(':code')
+    findOne(@Param('code') code: string): Promise<LabEntity> {
+        return this.labsService.findOne(code);
     }
 }
