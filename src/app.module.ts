@@ -4,9 +4,7 @@ import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { MeasurementsModule } from './measurements/measurements.module';
 import { BookingModule } from './booking/booking.module';
-import { AuditModule } from './audit/audit.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Audit } from './audit/audit.model';
 import { UserEntity } from './users/user.entity';
 import { BookingEntity } from './booking/booking.entity';
 import { MeasurementEntity } from './measurements/measurements.entity';
@@ -14,6 +12,7 @@ import { LabEntity } from './labs/lab.entity';
 import { UsersModule } from './users/users.module';
 import { BullModule } from '@nestjs/bull';
 import * as dotenv from 'dotenv';
+const SnakeNamingStrategy = require('typeorm-naming-strategies').SnakeNamingStrategy;
 
 dotenv.config();
 
@@ -27,8 +26,9 @@ dotenv.config();
                 username: process.env.DB_USERNAME,
                 password: process.env.DB_PASSWORD,
                 database: process.env.DB_DATABASE,
-                entities: [Audit, UserEntity, BookingEntity, MeasurementEntity, LabEntity],
-                synchronize: true
+                entities: [UserEntity, BookingEntity, MeasurementEntity, LabEntity],
+                synchronize: true,
+                namingStrategy: new SnakeNamingStrategy()
             })
         }),
         BullModule.forRoot({
@@ -45,8 +45,7 @@ dotenv.config();
         CoreModule,
         LabsModule,
         MeasurementsModule,
-        BookingModule,
-        AuditModule
+        BookingModule
     ],
     controllers: [],
     providers: []

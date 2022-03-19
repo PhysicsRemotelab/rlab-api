@@ -28,19 +28,19 @@ export class UserEntity extends BaseEntity {
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP'
     })
-    public last_login: Date;
+    public lastLogin: Date;
 
     @Column({
         name: 'created_at',
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP'
     })
-    public created_at: Date;
+    public createdAt: Date;
 
     @Column({
         name: 'updated_at',
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP'
     })
-    public updated_at: Date;
+    public updatedAt: Date;
 }

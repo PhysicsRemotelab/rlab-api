@@ -16,6 +16,6 @@ export class LabsService {
     }
 
     async findOne(code: string): Promise<LabEntity> {
-        return await this.repository.findOne({ code });
+        return await this.repository.findOne({ where: { code }});
     }
 }

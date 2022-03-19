@@ -1,4 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { LabEntity } from 'src/labs/lab.entity';
+import { UserEntity } from 'src/users/user.entity';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('bookings')
 export class BookingEntity extends BaseEntity {
@@ -6,37 +8,45 @@ export class BookingEntity extends BaseEntity {
     public id: number;
 
     @Column({ name: 'lab_id' })
-    public lab_id: number;
+    public labId: number;
+
+    @ManyToOne(() => LabEntity, { eager: true })
+    @JoinColumn({ name: 'lab_id' })
+    public lab: LabEntity;
 
     @Column({ name: 'user_id' })
-    public user_id: number;
+    public userId: number;
+
+    @ManyToOne(() => UserEntity, { eager: true })
+    @JoinColumn({ name: 'user_id' })
+    public user: UserEntity;
 
     @Column({ name: 'is_cancelled' })
-    public is_cancelled: boolean;
+    public isCancelled: boolean;
 
     @Column({
         name: 'taken_from',
         type: 'timestamp'
     })
-    public taken_from: Date;
+    public takenFrom: Date;
 
     @Column({
         name: 'taken_until',
         type: 'timestamp'
     })
-    public taken_until: Date;
+    public takenUntil: Date;
 
     @Column({
         name: 'created_at',
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP'
     })
-    public created_at: Date;
+    public createdAt: Date;
 
     @Column({
         name: 'updated_at',
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP'
     })
-    public updated_at: Date;
+    public updatedAt: Date;
 }

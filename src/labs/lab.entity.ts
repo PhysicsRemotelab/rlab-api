@@ -18,19 +18,19 @@ export class LabEntity extends BaseEntity {
     public image: string;
 
     @Column({ name: 'is_disabled' })
-    public is_disabled?: boolean;
+    public isDisabled: boolean;
 
     @Column({
         name: 'created_at',
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP'
     })
-    public created_at: Date;
+    public createdAt: Date;
 
     @Column({
         name: 'updated_at',
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP'
     })
-    public updated_at: Date;
+    public updatedAt: Date;
 }

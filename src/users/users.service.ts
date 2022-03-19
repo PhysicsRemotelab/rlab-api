@@ -20,7 +20,7 @@ export class UsersService {
         });
 
         if (user) {
-            user.last_login = new Date();
+            user.lastLogin = new Date();
             user.sub = this.request.user.sub;
             await this.userRepository.save(user);
         }

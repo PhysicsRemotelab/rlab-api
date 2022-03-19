@@ -4,77 +4,62 @@ import { UserEntity } from 'src/users/user.entity';
 import { BookingDto } from './booking.dto';
 import { BookingEntity } from './booking.entity';
 import { LessThan, MoreThan, Not, Repository } from 'typeorm';
-import { LabEntity } from 'src/labs/lab.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class BookingService {
     constructor(
-        @InjectRepository(BookingEntity)
-        private bookingRepository: Repository<BookingEntity>,
+        @Inject(REQUEST)
+        private request,
         @InjectRepository(UserEntity)
         private userRepository: Repository<UserEntity>,
-        @InjectRepository(LabEntity)
-        private labRepository: Repository<LabEntity>,
-        @Inject(REQUEST)
-        private request
+        @InjectRepository(BookingEntity)
+        private bookingRepository: Repository<BookingEntity>
     ) {}
 
-    public async create(bookingDto: BookingDto): Promise<LabEntity | string> {
+    public async create(bookingDto: BookingDto): Promise<BookingEntity | null> {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
-        const isAvailable = await this.isLabAvailable(bookingDto.lab_id, user.id);
-        if (!isAvailable) {
-            return 'Not available';
+        let booking = await this.bookingRepository.findOne({
+            where: {
+                labId: bookingDto.lab_id,
+                userId: user.id,
+                isCancelled: false
+            }
+        });
+
+        if (booking) {
+            return booking;
         }
 
-        let booking = new BookingEntity();
-        booking.lab_id = bookingDto.lab_id;
-        booking.user_id = user.id;
-        booking.is_cancelled = false;
-        booking.taken_from = new Date();
-        booking.taken_until = new Date(new Date().getTime() + 60 * 60 * 1000);
+        booking = new BookingEntity();
+        booking.labId = bookingDto.lab_id;
+        booking.userId = user.id;
+        booking.isCancelled = false;
+        booking.takenFrom = new Date();
+        booking.takenUntil = new Date(new Date().getTime() + 60 * 60 * 1000);
         booking = await booking.save();
-
-        return await this.labRepository.findOne(bookingDto.lab_id);
+        return await this.bookingRepository.findOne({ where: { id: booking.id }});
     }
 
-    public async getLabBooking(labId: number): Promise<BookingEntity> {
-        const booking = await this.bookingRepository.findOne({
+    public async getLabBooking(labId: number): Promise<BookingEntity | object> {
+        const booking = await this.bookingRepository.find({
             where: {
-                lab_id: labId,
-                taken_until: MoreThan(new Date()),
-                is_cancelled: 0
+                labId: labId,
+                takenUntil: MoreThan(new Date()),
+                isCancelled: false
             }
         });
-        return booking;
+        return booking[0] ?? {};
     }
 
-    private async isLabAvailable(labId: number, userId: number): Promise<boolean> {
-        const labs = await this.bookingRepository.find({
-            where: {
-                lab_id: labId,
-                user_id: Not(userId),
-                taken_until: LessThan(new Date()),
-                is_cancelled: false
-            }
-        });
-        return labs.length === 0;
-    }
-
-    public async cancelLabBooking(labId: number): Promise<void> {
+    public async cancelLabBooking(bookingId: number): Promise<BookingEntity> {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
-        const booking = await this.bookingRepository.findOne({
-            user_id: user.id,
-            lab_id: labId,
-            is_cancelled: false
-        });
-        booking.is_cancelled = true;
-        await this.bookingRepository.save(booking);
-
-        return;
+        const booking = await this.bookingRepository.findOne({ where: { id: bookingId, userId: user.id }});
+        booking.isCancelled = true;
+        return await this.bookingRepository.save(booking);
     }
 }

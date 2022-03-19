@@ -21,7 +21,7 @@ export class MeasurementService {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
         return await this.measurementRepository.find({
-            where: { user_id: user.id }
+            where: { userId: user.id }
         });
     }
 
@@ -32,13 +32,13 @@ export class MeasurementService {
         const measurement = new MeasurementEntity();
         measurement.result = measurementDto.result;
         measurement.name = measurementDto.name;
-        measurement.lab_id = measurementDto.lab_id;
-        measurement.user_id = user.id;
+        measurement.labId = measurementDto.lab_id;
+        measurement.userId = user.id;
         return await measurement.save();
     }
 
     async remove(id: number): Promise<MeasurementEntity> {
-        const model = await this.measurementRepository.findOne(id);
+        const model = await this.measurementRepository.findOne({ where: { id }});
         return await this.measurementRepository.remove(model);
     }
 }
