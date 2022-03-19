@@ -1,15 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { getRepository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Lab } from './lab.model';
 
 @Injectable()
 export class LabsService {
+    constructor(
+        @InjectRepository(Lab)
+        private repository: Repository<Lab>
+    ) {}
+
     async findAll(): Promise<Lab[]> {
-        const labs = await getRepository(Lab).find();
+        const labs = await this.repository.find();
         return labs;
     }
 
     async findOne(id: number): Promise<Lab> {
-        return await getRepository(Lab).findOne(id);
+        return await this.repository.findOne(id);
     }
 }

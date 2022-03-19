@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
+import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/user.model';
-import { EntityManager, getRepository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { MeasurementDto } from './measurement.dto';
 import { Measurement } from './measurements.model';
 
@@ -10,20 +11,23 @@ export class MeasurementService {
     constructor(
         @Inject(REQUEST)
         private request,
-        private readonly entityManager: EntityManager
+        @InjectRepository(User)
+        private userRepository: Repository<User>,
+        @InjectRepository(Measurement)
+        private measurementRepository: Repository<Measurement>
     ) {}
 
     async findAll(): Promise<Measurement[]> {
         const sub = this.request.user.sub;
-        const user = await getRepository(User).findOne({ where: { sub: sub } });
-        return await getRepository(Measurement).find({
+        const user = await this.userRepository.findOne({ where: { sub: sub } });
+        return await this.measurementRepository.find({
             where: { user_id: user.id }
         });
     }
 
     async create(measurementDto: MeasurementDto): Promise<Measurement> {
         const sub = this.request.user.sub;
-        const user = await getRepository(User).findOne({ where: { sub: sub } });
+        const user = await this.userRepository.findOne({ where: { sub: sub } });
         const measurement = new Measurement();
         measurement.result = measurementDto.result;
         measurement.name = measurementDto.name;
@@ -33,6 +37,7 @@ export class MeasurementService {
     }
 
     async remove(id: number): Promise<Measurement> {
-        return await this.entityManager.query('DELETE FROM measurements WHERE id = ?', [id]);
+        const model = await this.measurementRepository.findOne(id);
+        return await this.measurementRepository.remove(model);
     }
 }

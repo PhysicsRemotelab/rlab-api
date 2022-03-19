@@ -2,24 +2,27 @@ import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { UserDto } from './user.dto';
 import { User } from './user.model';
-import { getRepository, getConnection } from 'typeorm';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UsersService {
     constructor(
+        @InjectRepository(User)
+        private userRepository: Repository<User>,
         @Inject(REQUEST)
         private request
     ) {}
 
     async create(userDto: UserDto): Promise<User> {
-        const user = await getRepository(User).findOne({
+        const user = await this.userRepository.findOne({
             where: { email: userDto.email }
         });
 
         if (user) {
             user.last_login = new Date();
             user.sub = this.request.user.sub;
-            await getConnection().createQueryBuilder().update(User).set({ last_login: new Date(), sub: this.request.user.sub }).where('id = :id', { id: user.id }).execute();
+            await this.userRepository.save(user);
         }
 
         if (!user) {
