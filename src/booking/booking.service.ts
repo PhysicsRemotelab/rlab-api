@@ -3,7 +3,7 @@ import { REQUEST } from '@nestjs/core';
 import { UserEntity } from 'src/users/user.entity';
 import { BookingDto } from './booking.dto';
 import { BookingEntity } from './booking.entity';
-import { LessThan, MoreThan, Not, Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
@@ -40,7 +40,7 @@ export class BookingService {
         booking.takenFrom = new Date();
         booking.takenUntil = new Date(new Date().getTime() + 60 * 60 * 1000);
         booking = await booking.save();
-        return await this.bookingRepository.findOne({ where: { id: booking.id }});
+        return await this.bookingRepository.findOne({ where: { id: booking.id } });
     }
 
     public async getLabBooking(labId: number): Promise<BookingEntity | object> {
@@ -58,7 +58,7 @@ export class BookingService {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
-        const booking = await this.bookingRepository.findOne({ where: { id: bookingId, userId: user.id }});
+        const booking = await this.bookingRepository.findOne({ where: { id: bookingId, userId: user.id } });
         booking.isCancelled = true;
         return await this.bookingRepository.save(booking);
     }

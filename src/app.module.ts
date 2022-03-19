@@ -12,7 +12,7 @@ import { LabEntity } from './labs/lab.entity';
 import { UsersModule } from './users/users.module';
 import { BullModule } from '@nestjs/bull';
 import * as dotenv from 'dotenv';
-const SnakeNamingStrategy = require('typeorm-naming-strategies').SnakeNamingStrategy;
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 dotenv.config();
 

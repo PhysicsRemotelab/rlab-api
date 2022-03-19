@@ -38,7 +38,7 @@ export class MeasurementService {
     }
 
     async remove(id: number): Promise<MeasurementEntity> {
-        const model = await this.measurementRepository.findOne({ where: { id }});
+        const model = await this.measurementRepository.findOne({ where: { id } });
         return await this.measurementRepository.remove(model);
     }
 }
