@@ -5,6 +5,9 @@ export class Lab extends BaseEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
+    @Column({ name: 'code' })
+    public code: string;
+
     @Column({ name: 'name' })
     public name: string;
 

@@ -67,7 +67,7 @@ export class BookingService {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
-        let booking = await this.bookingRepository.findOne({
+        const booking = await this.bookingRepository.findOne({
             user_id: user.id,
             lab_id: labId,
             is_cancelled: false
