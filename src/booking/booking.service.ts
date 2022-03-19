@@ -3,7 +3,7 @@ import { REQUEST } from '@nestjs/core';
 import { User } from 'src/users/user.model';
 import { BookingDto } from './booking.dto';
 import { Booking } from './booking.model';
-import { MoreThan, Not, Repository } from 'typeorm';
+import { LessThan, MoreThan, Not, Repository } from 'typeorm';
 import { Lab } from 'src/labs/lab.model';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -56,25 +56,22 @@ export class BookingService {
             where: {
                 lab_id: labId,
                 user_id: Not(userId),
-                taken_until: MoreThan(new Date()),
-                is_cancelled: 0
+                taken_until: LessThan(new Date()),
+                is_cancelled: false
             }
         });
-        console.log(labs.length);
         return labs.length === 0;
     }
 
     public async cancelLabBooking(labId: number): Promise<void> {
-        console.log('cancel ', labId);
-        console.log(this.request.user_id);
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
         let booking = await this.bookingRepository.findOne({
             user_id: user.id,
-            lab_id: labId
+            lab_id: labId,
+            is_cancelled: false
         });
-        console.log(booking);
         booking.is_cancelled = true;
         await this.bookingRepository.save(booking);
 
