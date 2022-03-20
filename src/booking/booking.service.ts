@@ -44,14 +44,14 @@ export class BookingService {
     }
 
     public async getLabBooking(labId: number): Promise<BookingEntity | object> {
-        const booking = await this.bookingRepository.find({
+        const booking = await this.bookingRepository.findOne({
             where: {
                 labId: labId,
                 takenUntil: MoreThan(new Date()),
                 isCancelled: false
             }
         });
-        return booking[0] ?? {};
+        return booking;
     }
 
     public async cancelLabBooking(bookingId: number): Promise<BookingEntity> {
