@@ -14,9 +14,6 @@ export class UserEntity extends BaseEntity {
     @Column({ name: 'sub' })
     public sub: string;
 
-    @Column({ name: 'role' })
-    public role: string;
-
     @Column({ name: 'nickname' })
     public nickname: string;
 

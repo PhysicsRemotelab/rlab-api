@@ -11,10 +11,6 @@ export class UserDto {
 
     @IsString()
     @IsOptional()
-    roles?: string;
-
-    @IsString()
-    @IsOptional()
     sub?: string;
 
     @IsString()
@@ -24,10 +20,6 @@ export class UserDto {
     @IsString()
     @IsOptional()
     nickname?: string;
-
-    @IsString()
-    @IsOptional()
-    role?: string;
 
     @IsString()
     @IsOptional()

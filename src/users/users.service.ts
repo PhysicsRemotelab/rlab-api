@@ -30,10 +30,8 @@ export class UsersService {
             user.name = userDto.name;
             user.email = userDto.email;
             user.sub = userDto.sub;
-            user.role = userDto.role;
             user.nickname = userDto.nickname;
             user.picture = userDto.picture;
-            user.role = 'Student';
             user = await user.save();
         }
 
