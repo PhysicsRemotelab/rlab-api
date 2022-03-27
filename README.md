@@ -27,10 +27,6 @@ If API is running correctly, then it is possible to see Swagger documentation of
 http://localhost:4000/api/
 ```
 
-# Additional commands
-* npx sequelize-cli migration:generate --name migration-skeleton
-* npx sequelize-cli db:migrate
-
 # Setting up inital database
 Add root password in database
 ```
