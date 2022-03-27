@@ -5,7 +5,7 @@ import { UserDto } from './user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { PermissionsGuard } from 'src/auth/permissions.guard';
 
-@Controller('users')
+@Controller('api/v1/users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 

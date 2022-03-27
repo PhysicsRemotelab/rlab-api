@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { LabsService } from './labs.service';
 import { LabEntity } from './lab.entity';
 
-@Controller('labs')
+@Controller('api/v1/labs')
 export class LabsController {
     constructor(private readonly labsService: LabsService) {}
 

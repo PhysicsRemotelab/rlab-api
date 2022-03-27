@@ -5,7 +5,7 @@ import { MeasurementDto } from './measurement.dto';
 import { MeasurementEntity } from './measurements.entity';
 import { MeasurementService } from './measurements.service';
 
-@Controller('measurements')
+@Controller('api/v1/measurements')
 export class MeasurementController {
     constructor(private readonly measurementService: MeasurementService) {}
 
