@@ -1,18 +1,23 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { LabEntity } from 'src/labs/lab.entity';
 import { UserEntity } from 'src/users/user.entity';
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('measurements')
 export class MeasurementEntity extends BaseEntity {
+    @ApiProperty()
     @PrimaryGeneratedColumn()
     public id: number;
 
+    @ApiProperty()
     @Column({ name: 'name' })
     public name: string;
 
+    @ApiProperty()
     @Column({ name: 'result' })
     public result: string;
 
+    @ApiProperty()
     @Column({ name: 'lab_id' })
     public labId: number;
 
@@ -20,6 +25,7 @@ export class MeasurementEntity extends BaseEntity {
     @JoinColumn({ name: 'lab_id' })
     public lab: LabEntity;
 
+    @ApiProperty()
     @Column({ name: 'user_id' })
     public userId: number;
 
@@ -27,6 +33,7 @@ export class MeasurementEntity extends BaseEntity {
     @JoinColumn({ name: 'user_id' })
     public user: UserEntity;
 
+    @ApiProperty()
     @Column({
         name: 'created_at',
         type: 'timestamp',
@@ -34,6 +41,7 @@ export class MeasurementEntity extends BaseEntity {
     })
     public createdAt: Date;
 
+    @ApiProperty()
     @Column({
         name: 'updated_at',
         type: 'timestamp',

@@ -1,12 +1,15 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { LabEntity } from 'src/labs/lab.entity';
 import { UserEntity } from 'src/users/user.entity';
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('bookings')
 export class BookingEntity extends BaseEntity {
+    @ApiProperty()
     @PrimaryGeneratedColumn()
     public id: number;
 
+    @ApiProperty()
     @Column({ name: 'lab_id' })
     public labId: number;
 
@@ -14,6 +17,7 @@ export class BookingEntity extends BaseEntity {
     @JoinColumn({ name: 'lab_id' })
     public lab: LabEntity;
 
+    @ApiProperty()
     @Column({ name: 'user_id' })
     public userId: number;
 
@@ -21,21 +25,25 @@ export class BookingEntity extends BaseEntity {
     @JoinColumn({ name: 'user_id' })
     public user: UserEntity;
 
+    @ApiProperty()
     @Column({ name: 'is_cancelled' })
     public isCancelled: boolean;
 
+    @ApiProperty()
     @Column({
         name: 'taken_from',
         type: 'timestamp'
     })
     public takenFrom: Date;
 
+    @ApiProperty()
     @Column({
         name: 'taken_until',
         type: 'timestamp'
     })
     public takenUntil: Date;
 
+    @ApiProperty()
     @Column({
         name: 'created_at',
         type: 'timestamp',
@@ -43,6 +51,7 @@ export class BookingEntity extends BaseEntity {
     })
     public createdAt: Date;
 
+    @ApiProperty()
     @Column({
         name: 'updated_at',
         type: 'timestamp',
