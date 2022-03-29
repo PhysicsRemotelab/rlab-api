@@ -1,22 +1,26 @@
 import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PermissionsGuard } from 'src/auth/permissions.guard';
+import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
 import { MeasurementDto } from './measurement.dto';
 import { MeasurementEntity } from './measurements.entity';
 import { MeasurementService } from './measurements.service';
 
+@ApiResponse(BadRequest)
+@ApiResponse(Unauthorized)
 @ApiTags('Measurements')
 @Controller('api/v1/measurements')
 export class MeasurementController {
     constructor(private readonly measurementService: MeasurementService) {}
 
-    @ApiResponse({ status: 400, description: 'Bad Request' })
-    @ApiResponse({ status: 401, description: 'Unauthorized' })
     @ApiResponse({
         status: 200,
-        description: 'Get all user measurements',
+        description: 'OK',
         type: MeasurementEntity
+    })
+    @ApiOperation({
+        summary: 'Get measurements list'
     })
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Get()
@@ -24,12 +28,13 @@ export class MeasurementController {
         return this.measurementService.findAll();
     }
 
-    @ApiResponse({ status: 400, description: 'Bad Request' })
-    @ApiResponse({ status: 401, description: 'Unauthorized' })
     @ApiResponse({
-        status: 200,
-        description: 'Create user measurement',
+        status: 201,
+        description: 'Created',
         type: MeasurementEntity
+    })
+    @ApiOperation({
+        summary: 'Create measurement'
     })
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Post()
@@ -37,12 +42,13 @@ export class MeasurementController {
         return this.measurementService.create(measurementDto);
     }
 
-    @ApiResponse({ status: 400, description: 'Bad Request' })
-    @ApiResponse({ status: 401, description: 'Unauthorized' })
     @ApiResponse({
         status: 200,
-        description: 'Delete user measurement',
+        description: 'OK',
         type: MeasurementEntity
+    })
+    @ApiOperation({
+        summary: 'Delete measurement'
     })
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Delete(':id')

@@ -4,19 +4,23 @@ import { UserEntity } from './user.entity';
 import { UserDto } from './user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { PermissionsGuard } from 'src/auth/permissions.guard';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
 
+@ApiResponse(BadRequest)
+@ApiResponse(Unauthorized)
 @ApiTags('Users')
 @Controller('api/v1/users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
-    @ApiResponse({ status: 400, description: 'Bad Request' })
-    @ApiResponse({ status: 401, description: 'Unauthorized' })
     @ApiResponse({
-        status: 200,
-        description: 'Create user',
+        status: 201,
+        description: 'Created',
         type: UserEntity
+    })
+    @ApiOperation({
+        summary: 'Create user'
     })
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Post()

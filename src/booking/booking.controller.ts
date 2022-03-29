@@ -1,22 +1,26 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PermissionsGuard } from 'src/auth/permissions.guard';
+import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
 import { BookingDto } from './booking.dto';
 import { BookingEntity } from './booking.entity';
 import { BookingService } from './booking.service';
 
+@ApiResponse(BadRequest)
+@ApiResponse(Unauthorized)
 @ApiTags('Booking')
 @Controller('api/v1/booking')
 export class BookingController {
     constructor(private readonly bookingService: BookingService) {}
 
-    @ApiResponse({ status: 400, description: 'Bad Request' })
-    @ApiResponse({ status: 401, description: 'Unauthorized' })
     @ApiResponse({
-        status: 200,
-        description: 'Create booking',
+        status: 201,
+        description: 'Created',
         type: BookingEntity
+    })
+    @ApiOperation({
+        summary: 'Create booking'
     })
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Post()
@@ -24,12 +28,13 @@ export class BookingController {
         return this.bookingService.create(bookingDto);
     }
 
-    @ApiResponse({ status: 400, description: 'Bad Request' })
-    @ApiResponse({ status: 401, description: 'Unauthorized' })
     @ApiResponse({
         status: 200,
-        description: 'Check booking',
+        description: 'OK',
         type: BookingEntity
+    })
+    @ApiOperation({
+        summary: 'Get booking'
     })
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Get(':id')
@@ -37,12 +42,13 @@ export class BookingController {
         return this.bookingService.getLabBooking(labId);
     }
 
-    @ApiResponse({ status: 400, description: 'Bad Request' })
-    @ApiResponse({ status: 401, description: 'Unauthorized' })
     @ApiResponse({
         status: 200,
-        description: 'Cancel booking',
+        description: 'OK',
         type: BookingEntity
+    })
+    @ApiOperation({
+        summary: 'Cancel booking'
     })
     @UseGuards(AuthGuard('jwt'), PermissionsGuard)
     @Get('cancel/:id')
