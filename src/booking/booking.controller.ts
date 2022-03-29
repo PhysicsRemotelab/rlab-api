@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { PermissionsGuard } from 'src/auth/permissions.guard';
 import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
 import { BookingDto } from './booking.dto';
 import { BookingEntity } from './booking.entity';
@@ -22,7 +21,7 @@ export class BookingController {
     @ApiOperation({
         summary: 'Create booking'
     })
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     create(@Body() bookingDto: BookingDto): Promise<BookingEntity | null> {
         return this.bookingService.create(bookingDto);
@@ -36,7 +35,7 @@ export class BookingController {
     @ApiOperation({
         summary: 'Get booking'
     })
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @UseGuards(AuthGuard('jwt'))
     @Get(':id')
     check(@Param('id') labId: number): Promise<BookingEntity | object> {
         return this.bookingService.getLabBooking(labId);
@@ -50,7 +49,7 @@ export class BookingController {
     @ApiOperation({
         summary: 'Cancel booking'
     })
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @UseGuards(AuthGuard('jwt'))
     @Get('cancel/:id')
     cancel(@Param('id') bookingId: number): Promise<BookingEntity> {
         return this.bookingService.cancelLabBooking(bookingId);

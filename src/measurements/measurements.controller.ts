@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { PermissionsGuard } from 'src/auth/permissions.guard';
 import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
 import { MeasurementDto } from './measurement.dto';
 import { MeasurementEntity } from './measurements.entity';
@@ -22,7 +21,7 @@ export class MeasurementController {
     @ApiOperation({
         summary: 'Get measurements list'
     })
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @UseGuards(AuthGuard('jwt'))
     @Get()
     findAll(): Promise<MeasurementEntity[]> {
         return this.measurementService.findAll();
@@ -36,7 +35,7 @@ export class MeasurementController {
     @ApiOperation({
         summary: 'Create measurement'
     })
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     create(@Body() measurementDto: MeasurementDto): Promise<MeasurementEntity> {
         return this.measurementService.create(measurementDto);
@@ -50,7 +49,7 @@ export class MeasurementController {
     @ApiOperation({
         summary: 'Delete measurement'
     })
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
     remove(@Param('id') id: number): Promise<MeasurementEntity> {
         return this.measurementService.remove(id);

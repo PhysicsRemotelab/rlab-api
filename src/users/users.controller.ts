@@ -3,7 +3,6 @@ import { UsersService } from './users.service';
 import { UserEntity } from './user.entity';
 import { UserDto } from './user.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { PermissionsGuard } from 'src/auth/permissions.guard';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
 
@@ -22,7 +21,7 @@ export class UsersController {
     @ApiOperation({
         summary: 'Create user'
     })
-    @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+    @UseGuards(AuthGuard('jwt'),)
     @Post()
     create(@Body() userDto: UserDto): Promise<UserEntity> {
         return this.usersService.create(userDto);
