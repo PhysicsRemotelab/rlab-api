@@ -4,7 +4,7 @@ import { UserEntity } from './user.entity';
 import { UserDto } from './user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
+import { BadRequest, Unauthorized } from '../core/swagger.annotations';
 
 @ApiResponse(BadRequest)
 @ApiResponse(Unauthorized)

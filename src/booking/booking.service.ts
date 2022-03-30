@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
-import { UserEntity } from 'src/users/user.entity';
+import { UserEntity } from '../users/user.entity';
 import { BookingDto } from './booking.dto';
 import { BookingEntity } from './booking.entity';
 import { MoreThan, Repository } from 'typeorm';

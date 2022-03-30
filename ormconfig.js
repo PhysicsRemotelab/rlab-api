@@ -1,10 +1,10 @@
 module.exports = {
     "name": "seed",
     "type": "mysql",
-    "host": "127.0.0.1",
+    "host": "rlab-mysql",
     "port": 3306,
-    "username": "root",
-    "password": "strongpassword",
+    "username": "rlab-user",
+    "password": "rlab-password",
     "database": "remotelabdb",
     "migrationsTableName": "migrations",
     "migrations": ["migrations/*.ts"], 

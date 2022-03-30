@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { LabEntity } from 'src/labs/lab.entity';
-import { UserEntity } from 'src/users/user.entity';
+import { LabEntity } from '../labs/lab.entity';
+import { UserEntity } from '../users/user.entity';
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('bookings')
@@ -39,7 +39,8 @@ export class BookingEntity extends BaseEntity {
     @ApiProperty()
     @Column({
         name: 'taken_until',
-        type: 'timestamp'
+        type: 'timestamp',
+        default: () => 'CURRENT_TIMESTAMP'
     })
     public takenUntil: Date;
 

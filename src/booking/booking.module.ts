@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from 'src/users/user.entity';
+import { UserEntity } from '../users/user.entity';
 import { BookingController } from './booking.controller';
 import { BookingEntity } from './booking.entity';
 import { BookingService } from './booking.service';

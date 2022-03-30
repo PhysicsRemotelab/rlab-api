@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { LabEntity } from 'src/labs/lab.entity';
-import { UserEntity } from 'src/users/user.entity';
+import { LabEntity } from '../labs/lab.entity';
+import { UserEntity } from '../users/user.entity';
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('measurements')

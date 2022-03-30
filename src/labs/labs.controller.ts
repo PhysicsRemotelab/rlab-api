@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { LabsService } from './labs.service';
 import { LabEntity } from './lab.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
+import { BadRequest, Unauthorized } from '../core/swagger.annotations';
 
 @ApiTags('Labs')
 @Controller('api/v1/labs')

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
+import { BadRequest, Unauthorized } from '../core/swagger.annotations';
 import { BookingDto } from './booking.dto';
 import { BookingEntity } from './booking.entity';
 import { BookingService } from './booking.service';

@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { BadRequest, Unauthorized } from 'src/core/swagger.annotations';
+import { BadRequest, Unauthorized } from '../core/swagger.annotations';
 import { MeasurementDto } from './measurement.dto';
 import { MeasurementEntity } from './measurements.entity';
 import { MeasurementService } from './measurements.service';
