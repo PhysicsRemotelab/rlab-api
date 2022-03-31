@@ -11,8 +11,13 @@ export class LabsService {
     ) {}
 
     async findAll(): Promise<LabEntity[]> {
-        const labs = await this.repository.find();
-        return labs;
+        return await this.repository.find();
+        /*return await this.repository.find({
+            join: { alias: 'labs', leftJoinAndSelect: { bookings: 'labs.bookings' } },
+            where: (qb: any) => {
+                qb.where('bookings.id is null')
+            }
+        });*/
     }
 
     async findOne(code: string): Promise<LabEntity> {

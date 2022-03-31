@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BookingEntity } from 'src/booking/booking.entity';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('labs')
 export class LabEntity extends BaseEntity {
@@ -26,6 +27,9 @@ export class LabEntity extends BaseEntity {
     @ApiProperty()
     @Column({ name: 'is_disabled' })
     public isDisabled: boolean;
+
+    @OneToMany(() => BookingEntity, (booking) => booking.lab)
+    bookings: BookingEntity[];
 
     @ApiProperty()
     @Column({

@@ -21,7 +21,7 @@ export class UsersController {
     @ApiOperation({
         summary: 'Create user'
     })
-    @UseGuards(AuthGuard('jwt'),)
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     create(@Body() userDto: UserDto): Promise<UserEntity> {
         return this.usersService.create(userDto);

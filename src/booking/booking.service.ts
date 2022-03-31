@@ -49,7 +49,8 @@ export class BookingService {
                 labId: labId,
                 takenUntil: MoreThan(new Date()),
                 isCancelled: false
-            }
+            },
+            relations: ['user', 'lab']
         });
         return booking;
     }

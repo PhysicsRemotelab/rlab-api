@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { LabEntity } from '../labs/lab.entity';
 import { UserEntity } from '../users/user.entity';
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('bookings')
 export class BookingEntity extends BaseEntity {
@@ -13,8 +13,7 @@ export class BookingEntity extends BaseEntity {
     @Column({ name: 'lab_id' })
     public labId: number;
 
-    @ManyToOne(() => LabEntity, { eager: true })
-    @JoinColumn({ name: 'lab_id' })
+    @ManyToOne(() => LabEntity, (lab) => lab.bookings, { eager: true })
     public lab: LabEntity;
 
     @ApiProperty()
@@ -22,7 +21,6 @@ export class BookingEntity extends BaseEntity {
     public userId: number;
 
     @ManyToOne(() => UserEntity, { eager: true })
-    @JoinColumn({ name: 'user_id' })
     public user: UserEntity;
 
     @ApiProperty()
