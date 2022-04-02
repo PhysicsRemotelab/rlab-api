@@ -25,7 +25,9 @@ export class BookingService {
             where: {
                 labId: bookingDto.lab_id,
                 userId: user.id,
-                isCancelled: false
+                takenFrom: LessThan(new Date()),
+                takenUntil: MoreThan(new Date()),
+                isCancelled: 0
             }
         });
 
