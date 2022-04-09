@@ -9,7 +9,7 @@ export class MeasurementDto {
 
     @ApiProperty()
     @IsNumber()
-    lab_id: number;
+    labId: number;
 
     @ApiProperty()
     @IsString()
@@ -17,5 +17,5 @@ export class MeasurementDto {
 
     @ApiProperty()
     @IsString()
-    name: string;
+    displayName: string;
 }

@@ -10,12 +10,16 @@ export class MeasurementEntity extends BaseEntity {
     public id: number;
 
     @ApiProperty()
-    @Column({ name: 'name' })
-    public name: string;
-
-    @ApiProperty()
     @Column({ name: 'result' })
     public result: string;
+
+    @ApiProperty()
+    @Column({ name: 'file_name' })
+    public fileName: string;
+
+    @ApiProperty()
+    @Column({ name: 'display_name' })
+    public displayName: string;
 
     @ApiProperty()
     @Column({ name: 'lab_id' })

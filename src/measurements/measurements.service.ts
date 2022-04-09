@@ -5,6 +5,7 @@ import { UserEntity } from '../users/user.entity';
 import { Repository } from 'typeorm';
 import { MeasurementDto } from './measurement.dto';
 import { MeasurementEntity } from './measurements.entity';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class MeasurementService {
@@ -31,8 +32,9 @@ export class MeasurementService {
 
         const measurement = new MeasurementEntity();
         measurement.result = measurementDto.result;
-        measurement.name = measurementDto.name;
-        measurement.labId = measurementDto.lab_id;
+        measurement.displayName = measurementDto.displayName + '.txt';
+        measurement.fileName = randomUUID() + '.txt';
+        measurement.labId = measurementDto.labId;
         measurement.userId = user.id;
         return await measurement.save();
     }
