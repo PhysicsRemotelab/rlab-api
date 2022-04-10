@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, StreamableFile, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequest, Unauthorized } from '../core/swagger.annotations';
@@ -53,5 +53,19 @@ export class MeasurementController {
     @Delete(':id')
     remove(@Param('id') id: number): Promise<MeasurementEntity> {
         return this.measurementService.remove(id);
+    }
+
+    @ApiResponse({
+        status: 200,
+        description: 'OK',
+        type: StreamableFile
+    })
+    @ApiOperation({
+        summary: 'Download data file'
+    })
+    @UseGuards(AuthGuard('jwt'))
+    @Get('/download/:id')
+    public async download(@Param('id') id: number): Promise<StreamableFile> {
+        return await this.measurementService.downloadStream(id);
     }
 }
