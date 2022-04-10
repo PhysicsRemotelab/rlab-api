@@ -23,7 +23,7 @@ export class UsersController {
     })
     @UseGuards(AuthGuard('jwt'))
     @Post()
-    create(@Body() userDto: UserDto): Promise<UserEntity> {
+    public create(@Body() userDto: UserDto): Promise<UserEntity> {
         return this.usersService.create(userDto);
     }
 }

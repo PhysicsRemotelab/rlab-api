@@ -23,7 +23,7 @@ export class BookingController {
     })
     @UseGuards(AuthGuard('jwt'))
     @Post()
-    create(@Body() bookingDto: BookingDto): Promise<BookingEntity | null> {
+    public create(@Body() bookingDto: BookingDto): Promise<BookingEntity | null> {
         return this.bookingService.create(bookingDto);
     }
 
@@ -37,7 +37,7 @@ export class BookingController {
     })
     @UseGuards(AuthGuard('jwt'))
     @Get(':id')
-    check(@Param('id') labId: number): Promise<BookingEntity | object> {
+    public check(@Param('id') labId: number): Promise<BookingEntity | object> {
         return this.bookingService.getLabBooking(labId);
     }
 
@@ -51,7 +51,7 @@ export class BookingController {
     })
     @UseGuards(AuthGuard('jwt'))
     @Get('cancel/:id')
-    cancel(@Param('id') bookingId: number): Promise<BookingEntity> {
+    public cancel(@Param('id') bookingId: number): Promise<BookingEntity> {
         return this.bookingService.cancelLabBooking(bookingId);
     }
 }

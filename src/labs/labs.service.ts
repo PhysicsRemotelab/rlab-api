@@ -10,7 +10,7 @@ export class LabsService {
         private repository: Repository<LabEntity>
     ) {}
 
-    async findAll(): Promise<LabEntity[]> {
+    public async findAll(): Promise<LabEntity[]> {
         return await this.repository.find();
         /*return await this.repository.find({
             join: { alias: 'labs', leftJoinAndSelect: { bookings: 'labs.bookings' } },
@@ -20,7 +20,7 @@ export class LabsService {
         });*/
     }
 
-    async findOne(code: string): Promise<LabEntity> {
+    public async findOne(code: string): Promise<LabEntity> {
         return await this.repository.findOne({ where: { code } });
     }
 }

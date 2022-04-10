@@ -23,7 +23,7 @@ export class MeasurementController {
     })
     @UseGuards(AuthGuard('jwt'))
     @Get()
-    findAll(): Promise<MeasurementEntity[]> {
+    public findAll(): Promise<MeasurementEntity[]> {
         return this.measurementService.findAll();
     }
 
@@ -37,7 +37,7 @@ export class MeasurementController {
     })
     @UseGuards(AuthGuard('jwt'))
     @Post()
-    create(@Body() measurementDto: MeasurementDto): Promise<MeasurementEntity> {
+    public create(@Body() measurementDto: MeasurementDto): Promise<MeasurementEntity> {
         return this.measurementService.create(measurementDto);
     }
 
@@ -51,7 +51,7 @@ export class MeasurementController {
     })
     @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
-    remove(@Param('id') id: number): Promise<MeasurementEntity> {
+    public remove(@Param('id') id: number): Promise<MeasurementEntity> {
         return this.measurementService.remove(id);
     }
 

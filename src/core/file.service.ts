@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync, createReadStream, ReadStream } from 'fs';
 import { parse } from 'node-xlsx';
 import { EOL } from 'os';
 
@@ -36,10 +36,14 @@ export class FileService {
         }
     }
 
-    public writeResponseFileToDisk(data: string, path: string): boolean {
+    public createReadStream(path: string): ReadStream {
+        return createReadStream('./data/' + path);
+    }
+
+    public writeDataFileToDisk(data: string, path: string): boolean {
         try {
             console.log(data);
-            appendFileSync('./' + path, JSON.stringify(data) + EOL);
+            appendFileSync('./data/' + path, JSON.stringify(data) + EOL);
             return true;
         } catch (ex) {
             console.log(ex);

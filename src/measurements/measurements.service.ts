@@ -7,7 +7,6 @@ import { MeasurementDto } from './measurement.dto';
 import { MeasurementEntity } from './measurements.entity';
 import { randomUUID } from 'crypto';
 import { FileService } from 'src/core/file.service';
-import { createReadStream } from 'fs';
 
 @Injectable()
 export class MeasurementService {
@@ -21,7 +20,7 @@ export class MeasurementService {
         private fileService: FileService
     ) {}
 
-    async findAll(): Promise<MeasurementEntity[]> {
+    public async findAll(): Promise<MeasurementEntity[]> {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
         return await this.measurementRepository.find({
@@ -29,7 +28,7 @@ export class MeasurementService {
         });
     }
 
-    async create(measurementDto: MeasurementDto): Promise<MeasurementEntity> {
+    public async create(measurementDto: MeasurementDto): Promise<MeasurementEntity> {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
@@ -39,17 +38,20 @@ export class MeasurementService {
         measurement.fileName = randomUUID() + '.txt';
         measurement.labId = measurementDto.labId;
         measurement.userId = user.id;
+
+        this.fileService.writeDataFileToDisk(measurementDto.result, measurement.fileName);
+
         return await measurement.save();
     }
 
-    async remove(id: number): Promise<MeasurementEntity> {
+    public async remove(id: number): Promise<MeasurementEntity> {
         const model = await this.measurementRepository.findOne({ where: { id } });
         return await this.measurementRepository.remove(model);
     }
-    
-    async downloadStream(id: number): Promise<StreamableFile> {
+
+    public async downloadStream(id: number): Promise<StreamableFile> {
         const measurementEntity = await this.measurementRepository.findOne({ where: { id } });
-        const file = createReadStream('./data' + measurementEntity.fileName);
+        const file = this.fileService.createReadStream(measurementEntity.fileName);
         return new StreamableFile(file);
     }
 }

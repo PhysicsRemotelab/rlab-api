@@ -18,7 +18,7 @@ export class LabsController {
         summary: 'Get labs list'
     })
     @Get()
-    findAll(): Promise<LabEntity[]> {
+    public findAll(): Promise<LabEntity[]> {
         return this.labsService.findAll();
     }
 
@@ -33,7 +33,7 @@ export class LabsController {
         summary: 'Get lab details by code'
     })
     @Get(':code')
-    findOne(@Param('code') code: string): Promise<LabEntity> {
+    public findOne(@Param('code') code: string): Promise<LabEntity> {
         return this.labsService.findOne(code);
     }
 }
