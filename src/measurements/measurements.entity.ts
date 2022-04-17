@@ -10,10 +10,6 @@ export class MeasurementEntity extends BaseEntity {
     public id: number;
 
     @ApiProperty()
-    @Column({ name: 'result' })
-    public result: string;
-
-    @ApiProperty()
     @Column({ name: 'file_name' })
     public fileName: string;
 

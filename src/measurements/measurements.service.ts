@@ -33,7 +33,6 @@ export class MeasurementService {
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
         const measurement = new MeasurementEntity();
-        measurement.result = measurementDto.result;
         measurement.displayName = measurementDto.displayName + '.txt';
         measurement.fileName = randomUUID() + '.txt';
         measurement.labId = measurementDto.labId;
