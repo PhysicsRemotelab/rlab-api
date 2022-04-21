@@ -66,4 +66,11 @@ export class BookingService {
         booking.isCancelled = true;
         return await this.bookingRepository.save(booking);
     }
+
+    public async findAll(): Promise<BookingEntity[]> {
+        const sub = this.request.user.sub;
+        const user = await this.userRepository.findOne({ where: { sub: sub } });
+
+        return await this.bookingRepository.find({ where: { userId: user.id } });
+    }
 }

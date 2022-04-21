@@ -33,7 +33,7 @@ export class BookingController {
         type: BookingEntity
     })
     @ApiOperation({
-        summary: 'Get booking'
+        summary: 'Check booking'
     })
     @UseGuards(AuthGuard('jwt'))
     @Get(':id')
@@ -53,5 +53,19 @@ export class BookingController {
     @Get('cancel/:id')
     public cancel(@Param('id') bookingId: number): Promise<BookingEntity> {
         return this.bookingService.cancelLabBooking(bookingId);
+    }
+
+    @ApiResponse({
+        status: 200,
+        description: 'OK',
+        type: BookingEntity
+    })
+    @ApiOperation({
+        summary: 'Get user bookings list'
+    })
+    @UseGuards(AuthGuard('jwt'))
+    @Get()
+    public findAll(): Promise<BookingEntity[]> {
+        return this.bookingService.findAll();
     }
 }
