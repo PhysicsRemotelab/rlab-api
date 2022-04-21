@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequest, Unauthorized } from '../core/swagger.annotations';
@@ -67,5 +67,19 @@ export class BookingController {
     @Get()
     public findAll(): Promise<BookingEntity[]> {
         return this.bookingService.findAll();
+    }
+
+    @ApiResponse({
+        status: 200,
+        description: 'OK',
+        type: BookingEntity
+    })
+    @ApiOperation({
+        summary: 'Delete booking'
+    })
+    @UseGuards(AuthGuard('jwt'))
+    @Delete(':id')
+    public remove(@Param('id') id: number): Promise<BookingEntity> {
+        return this.bookingService.remove(id);
     }
 }
