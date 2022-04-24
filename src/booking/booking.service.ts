@@ -5,6 +5,7 @@ import { BookingDto } from './booking.dto';
 import { BookingEntity } from './booking.entity';
 import { LessThan, MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class BookingService {
@@ -41,6 +42,7 @@ export class BookingService {
         booking.isCancelled = false;
         booking.takenFrom = new Date();
         booking.takenUntil = new Date(new Date().getTime() + 60 * 60 * 1000);
+        booking.token = randomUUID();
         booking = await booking.save();
         return await this.bookingRepository.findOne({ where: { id: booking.id } });
     }

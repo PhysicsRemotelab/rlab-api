@@ -10,6 +10,10 @@ export class BookingEntity extends BaseEntity {
     public id: number;
 
     @ApiProperty()
+    @Column({ name: 'token' })
+    public token: string;
+
+    @ApiProperty()
     @Column({ name: 'lab_id' })
     public labId: number;
 
