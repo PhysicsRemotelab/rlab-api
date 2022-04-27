@@ -37,4 +37,18 @@ export class UsersService {
 
         return user;
     }
+
+    public async update(userDto: UserDto): Promise<UserEntity> {
+        const user = await this.userRepository.findOne({
+            where: { email: userDto.email }
+        });
+
+        if (user) {
+            user.lastLogin = new Date();
+            user.code = this.request.user.code;
+            await this.userRepository.save(user);
+        }
+
+        return user;
+    }
 }

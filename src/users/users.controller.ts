@@ -26,4 +26,18 @@ export class UsersController {
     public create(@Body() userDto: UserDto): Promise<UserEntity> {
         return this.usersService.create(userDto);
     }
+
+    @ApiResponse({
+        status: 200,
+        description: 'OK',
+        type: UserEntity
+    })
+    @ApiOperation({
+        summary: 'Update user'
+    })
+    @UseGuards(AuthGuard('jwt'))
+    @Post()
+    public update(@Body() userDto: UserDto): Promise<UserEntity> {
+        return this.usersService.update(userDto);
+    }
 }

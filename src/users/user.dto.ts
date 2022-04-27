@@ -15,6 +15,11 @@ export class UserDto {
     @ApiProperty()
     @IsString()
     @IsOptional()
+    code?: string;
+
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
     sub?: string;
 
     @ApiProperty()
