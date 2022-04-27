@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Put, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserEntity } from './user.entity';
 import { UserDto } from './user.dto';
@@ -36,7 +36,7 @@ export class UsersController {
         summary: 'Update user'
     })
     @UseGuards(AuthGuard('jwt'))
-    @Post()
+    @Put()
     public update(@Body() userDto: UserDto): Promise<UserEntity> {
         return this.usersService.update(userDto);
     }
