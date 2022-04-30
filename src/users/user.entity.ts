@@ -12,8 +12,8 @@ export class UserEntity extends BaseEntity {
     public name: string;
 
     @ApiProperty()
-    @Column({ name: 'code' })
-    public code: string;
+    @Column({ name: 'code', nullable: true })
+    public code?: string;
 
     @ApiProperty()
     @Column({ name: 'email' })
