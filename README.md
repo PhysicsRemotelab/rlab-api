@@ -1,9 +1,21 @@
-# Setup env
+# Clone repository
 
 Clone code for API
 ```
 git clone git@github.com:PhysicsRemotelab/rlab-api.git
 ```
+
+# Setup using Docker
+```
+docker compose up
+```
+
+Login into rlab-api container and seed database
+```
+npm run seed
+```
+
+# Setup without Docker
 
 After cloning, go to directory and install Node dependencies. Dependencies to be installed are defined in package.json file.
 ```
