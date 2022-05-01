@@ -15,14 +15,13 @@ export class UsersService {
     ) {}
 
     public async create(userDto: UserDto): Promise<UserEntity> {
-        const user = await this.userRepository.findOne({
-            where: { email: userDto.email }
-        });
+        const sub = this.request.user.sub;
+        let user = await this.userRepository.findOne({ where: { sub: sub } });
 
         if (user) {
             user.lastLogin = new Date();
             user.sub = this.request.user.sub;
-            await this.userRepository.save(user);
+            user = await this.userRepository.save(user);
         }
 
         if (!user) {
@@ -39,16 +38,23 @@ export class UsersService {
     }
 
     public async update(userDto: UserDto): Promise<UserEntity> {
-        const user = await this.userRepository.findOne({
-            where: { email: userDto.email }
-        });
+        const sub = this.request.user.sub;
+        let user = await this.userRepository.findOne({ where: { sub: sub } });
 
         if (user) {
             user.lastLogin = new Date();
-            user.code = this.request.user.code;
-            await this.userRepository.save(user);
+            user.code = userDto.code;
+            user.firstName = userDto.firstName;
+            user.lastName = userDto.lastName;
+            user = await this.userRepository.save(user);
         }
 
+        return user;
+    }
+    
+    public async get(): Promise<UserEntity> {
+        const sub = this.request.user.sub;
+        const user = await this.userRepository.findOne({ where: { sub: sub } });
         return user;
     }
 }

@@ -24,6 +24,14 @@ export class UserEntity extends BaseEntity {
     public sub: string;
 
     @ApiProperty()
+    @Column({ name: 'first_name', nullable: true })
+    public firstName?: string;
+    
+    @ApiProperty()
+    @Column({ name: 'last_name', nullable: true })
+    public lastName?: string;
+
+    @ApiProperty()
     @Column({ name: 'nickname' })
     public nickname: string;
 

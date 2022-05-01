@@ -20,6 +20,16 @@ export class UserDto {
     @ApiProperty()
     @IsString()
     @IsOptional()
+    firstName?: string;
+
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
+    lastName?: string;
+
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
     sub?: string;
 
     @ApiProperty()

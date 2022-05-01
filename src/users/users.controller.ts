@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserEntity } from './user.entity';
 import { UserDto } from './user.dto';
@@ -39,5 +39,19 @@ export class UsersController {
     @Put()
     public update(@Body() userDto: UserDto): Promise<UserEntity> {
         return this.usersService.update(userDto);
+    }
+
+    @ApiResponse({
+        status: 200,
+        description: 'OK',
+        type: UserEntity
+    })
+    @ApiOperation({
+        summary: 'Get user'
+    })
+    @UseGuards(AuthGuard('jwt'))
+    @Get()
+    public get(): Promise<UserEntity> {
+        return this.usersService.get();
     }
 }
