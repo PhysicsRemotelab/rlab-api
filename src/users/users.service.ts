@@ -26,7 +26,6 @@ export class UsersService {
 
         if (!user) {
             let user = new UserEntity();
-            user.name = userDto.name;
             user.email = userDto.email;
             user.sub = userDto.sub;
             user.nickname = userDto.nickname;
@@ -51,7 +50,7 @@ export class UsersService {
 
         return user;
     }
-    
+
     public async get(): Promise<UserEntity> {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });

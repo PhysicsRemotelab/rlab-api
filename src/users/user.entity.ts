@@ -8,10 +8,6 @@ export class UserEntity extends BaseEntity {
     public id: number;
 
     @ApiProperty()
-    @Column({ name: 'name' })
-    public name: string;
-
-    @ApiProperty()
     @Column({ name: 'code', nullable: true })
     public code?: string;
 
@@ -26,7 +22,7 @@ export class UserEntity extends BaseEntity {
     @ApiProperty()
     @Column({ name: 'first_name', nullable: true })
     public firstName?: string;
-    
+
     @ApiProperty()
     @Column({ name: 'last_name', nullable: true })
     public lastName?: string;
