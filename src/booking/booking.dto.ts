@@ -11,4 +11,9 @@ export class BookingDto {
     @IsString()
     @IsOptional()
     token: string;
+
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
+    book_date: Date;
 }

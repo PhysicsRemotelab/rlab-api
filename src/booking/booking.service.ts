@@ -36,12 +36,19 @@ export class BookingService {
             return booking;
         }
 
+        let takenFrom = new Date();
+        let takenUntil = new Date(new Date().getTime() + 60 * 60 * 1000);
+        if (bookingDto.book_date) {
+            takenFrom = new Date(bookingDto.book_date);
+            takenUntil = new Date(new Date(bookingDto.book_date).getTime() + 24 * 60 * 60 * 1000);
+        }
+
         booking = new BookingEntity();
         booking.labId = bookingDto.lab_id;
         booking.userId = user.id;
         booking.isCancelled = false;
-        booking.takenFrom = new Date();
-        booking.takenUntil = new Date(new Date().getTime() + 60 * 60 * 1000);
+        booking.takenFrom = takenFrom;
+        booking.takenUntil = takenUntil;
         booking.token = randomUUID();
         booking = await booking.save();
         return await this.bookingRepository.findOne({ where: { id: booking.id } });
