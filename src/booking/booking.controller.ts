@@ -82,4 +82,18 @@ export class BookingController {
     public remove(@Param('id') id: number): Promise<BookingEntity> {
         return this.bookingService.remove(id);
     }
+
+    @ApiResponse({
+        status: 200,
+        description: 'OK',
+        type: BookingEntity
+    })
+    @ApiOperation({
+        summary: 'Get taken days by lab id'
+    })
+    @UseGuards(AuthGuard('jwt'))
+    @Get('taken_days/:labId')
+    public getTakenDays(@Param('labId') labId: number): Promise<BookingEntity[]> {
+        return this.bookingService.getTakenDays(labId);
+    }
 }

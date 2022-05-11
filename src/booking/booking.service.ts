@@ -83,4 +83,15 @@ export class BookingService {
         const model = await this.bookingRepository.findOne({ where: { id, userId: user.id } });
         return await this.bookingRepository.remove(model);
     }
+
+    public async getTakenDays(labId: number): Promise<BookingEntity[]> {
+        const bookings = await this.bookingRepository.find({
+            where: {
+                labId: labId,
+                takenUntil: MoreThan(new Date()),
+                isCancelled: 0
+            }
+        });
+        return bookings;
+    }
 }
