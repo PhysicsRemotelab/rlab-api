@@ -6,6 +6,7 @@ import { BookingEntity } from './booking.entity';
 import { LessThan, MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
+import * as moment from 'moment';
 
 @Injectable()
 export class BookingService {
@@ -22,25 +23,30 @@ export class BookingService {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
+        let bookDate = new Date(bookingDto.book_date);
+        console.log(bookDate);
+
         let booking = await this.bookingRepository.findOne({
             where: {
                 labId: bookingDto.lab_id,
-                userId: user.id,
-                takenFrom: LessThan(new Date()),
-                takenUntil: MoreThan(new Date()),
+                takenFrom: LessThan(bookDate),
+                takenUntil: MoreThan(bookDate),
                 isCancelled: 0
             }
         });
 
         if (booking) {
+            console.log('taken');
             return booking;
         }
 
+        console.log('not taken');
+
         let takenFrom = new Date();
-        let takenUntil = new Date(new Date().getTime() + 60 * 60 * 1000);
+        let takenUntil = new Date(takenFrom.getFullYear(), takenFrom.getMonth(), takenFrom.getDate(), 23,59,59);
         if (bookingDto.book_date) {
             takenFrom = new Date(bookingDto.book_date);
-            takenUntil = new Date(new Date(bookingDto.book_date).getTime() + 24 * 60 * 60 * 1000);
+            takenUntil = new Date(takenFrom.getFullYear(), takenFrom.getMonth(), takenFrom.getDate(), 23,59,59);
         }
 
         booking = new BookingEntity();
@@ -92,13 +98,19 @@ export class BookingService {
     }
 
     public async getTakenDays(labId: number): Promise<BookingEntity[]> {
-        const bookings = await this.bookingRepository.find({
+        let bookings = await this.bookingRepository.find({
             where: {
                 labId: labId,
                 takenUntil: MoreThan(new Date()),
                 isCancelled: 0
             }
         });
-        return bookings;
+        console.log(bookings);
+        const arr = bookings.map((elem: BookingEntity) => {
+            const el = elem as any;
+            el.takenUntil = moment(elem.takenUntil.setHours(0,0,0,0)).format('YYYY-MM-DDTHH:mm');
+            return el;
+        });
+        return arr;
     }
 }

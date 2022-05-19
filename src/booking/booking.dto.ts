@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsDateString, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class BookingDto {
     @ApiProperty()
@@ -13,7 +13,7 @@ export class BookingDto {
     token: string;
 
     @ApiProperty()
-    @IsString()
+    @IsDateString()
     @IsOptional()
     book_date: Date;
 }

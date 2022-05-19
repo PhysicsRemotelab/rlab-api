@@ -34,6 +34,7 @@
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.0",
     "jwks-rsa": "^2.0.5",
+    "moment": "^2.29.3",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "node-xlsx": "^0.21.0",
