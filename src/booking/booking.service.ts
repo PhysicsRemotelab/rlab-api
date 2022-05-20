@@ -23,7 +23,7 @@ export class BookingService {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
-        let bookDate = new Date(bookingDto.book_date);
+        const bookDate = new Date(bookingDto.book_date);
         bookDate.setTime(bookDate.getTime() + 3 * 60 * 60 * 1000);
         console.log(bookDate);
 
@@ -44,10 +44,10 @@ export class BookingService {
         console.log('not taken');
 
         let takenFrom = new Date();
-        let takenUntil = new Date(takenFrom.getFullYear(), takenFrom.getMonth(), takenFrom.getDate(), 23,59,59);
+        let takenUntil = new Date(takenFrom.getFullYear(), takenFrom.getMonth(), takenFrom.getDate(), 23, 59, 59);
         if (bookingDto.book_date) {
             takenFrom = new Date(bookingDto.book_date);
-            takenUntil = new Date(takenFrom.getFullYear(), takenFrom.getMonth(), takenFrom.getDate(), 23,59,59);
+            takenUntil = new Date(takenFrom.getFullYear(), takenFrom.getMonth(), takenFrom.getDate(), 23, 59, 59);
         }
 
         booking = new BookingEntity();
@@ -61,8 +61,8 @@ export class BookingService {
         return await this.bookingRepository.findOne({ where: { id: booking.id } });
     }
 
-    public async getLabBooking(labId: number): Promise<BookingEntity | object> {
-        let today = new Date();
+    public async getLabBooking(labId: number): Promise<BookingEntity> {
+        const today = new Date();
         today.setTime(today.getTime() + 3 * 60 * 60 * 1000);
 
         const booking = await this.bookingRepository.findOne({
@@ -102,7 +102,7 @@ export class BookingService {
     }
 
     public async getTakenDays(labId: number): Promise<BookingEntity[]> {
-        let bookings = await this.bookingRepository.find({
+        const bookings = await this.bookingRepository.find({
             where: {
                 labId: labId,
                 takenUntil: MoreThan(new Date()),
@@ -112,7 +112,7 @@ export class BookingService {
         console.log(bookings);
         const arr = bookings.map((elem: BookingEntity) => {
             const el = elem as any;
-            el.takenUntil = moment(elem.takenUntil.setHours(0,0,0,0)).format('YYYY-MM-DD');
+            el.takenUntil = moment(elem.takenUntil.setHours(0, 0, 0, 0)).format('YYYY-MM-DD');
             return el;
         });
         return arr;
