@@ -24,6 +24,7 @@ export class BookingService {
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
         let bookDate = new Date(bookingDto.book_date);
+        bookDate.setTime(bookDate.getTime() + 3 * 60 * 60 * 1000);
         console.log(bookDate);
 
         let booking = await this.bookingRepository.findOne({
@@ -61,11 +62,14 @@ export class BookingService {
     }
 
     public async getLabBooking(labId: number): Promise<BookingEntity | object> {
+        let today = new Date();
+        today.setTime(today.getTime() + 3 * 60 * 60 * 1000);
+
         const booking = await this.bookingRepository.findOne({
             where: {
                 labId: labId,
-                takenFrom: LessThan(new Date()),
-                takenUntil: MoreThan(new Date()),
+                takenFrom: LessThan(today),
+                takenUntil: MoreThan(today),
                 isCancelled: 0
             },
             relations: ['user', 'lab']
@@ -108,7 +112,7 @@ export class BookingService {
         console.log(bookings);
         const arr = bookings.map((elem: BookingEntity) => {
             const el = elem as any;
-            el.takenUntil = moment(elem.takenUntil.setHours(0,0,0,0)).format('YYYY-MM-DDTHH:mm');
+            el.takenUntil = moment(elem.takenUntil.setHours(0,0,0,0)).format('YYYY-MM-DD');
             return el;
         });
         return arr;
