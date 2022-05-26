@@ -24,7 +24,10 @@ export class MeasurementService {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
         return await this.measurementRepository.find({
-            where: { userId: user.id }
+            where: { userId: user.id },
+            order: {
+                id: 'DESC'
+            }
         });
     }
 

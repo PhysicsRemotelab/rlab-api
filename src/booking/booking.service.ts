@@ -90,7 +90,7 @@ export class BookingService {
         const sub = this.request.user.sub;
         const user = await this.userRepository.findOne({ where: { sub: sub } });
 
-        return await this.bookingRepository.find({ where: { userId: user.id } });
+        return await this.bookingRepository.find({ where: { userId: user.id }, order: { id: 'DESC' } });
     }
 
     public async remove(id: number): Promise<BookingEntity> {
