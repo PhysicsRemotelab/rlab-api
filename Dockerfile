@@ -1,34 +1,48 @@
-FROM node:16-alpine AS development
-USER node
-WORKDIR /home/node
+###################
+# BUILD FOR LOCAL DEVELOPMENT
+###################
+
+FROM node:18-alpine As development
+
+WORKDIR /usr/src/app
 
 COPY --chown=node:node package*.json ./
 
-RUN npm install
+RUN npm ci
+
+COPY --chown=node:node . .
+
+USER node
+
+###################
+# BUILD FOR PRODUCTION
+###################
+
+FROM node:18-alpine As build
+
+WORKDIR /usr/src/app
+
+COPY --chown=node:node package*.json ./
+
+COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
 
 COPY --chown=node:node . .
 
 RUN npm run build
 
-FROM node:16-alpine AS production-builder
+ENV NODE_ENV production
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+RUN npm ci --only=production && npm cache clean --force
 
-WORKDIR /home/node
+USER node
 
-COPY package*.json ./
-COPY .npmrc .npmrc
-RUN npm install --only=production
+###################
+# PRODUCTION
+###################
 
-FROM node:16-alpine AS production
+FROM node:18-alpine As production
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
+COPY --chown=node:node --from=build /usr/src/app/dist ./dist
 
-WORKDIR /home/node
-COPY --from=production-builder /home/node/node_modules ./node_modules
-COPY --from=development /home/node/package.json ./
-COPY --from=development /home/node/dist ./
-COPY --from=development /home/node/dist/migrations ./dist/migrations
-CMD ["/bin/sh", "-c", "node ./node_modules/typeorm/cli.js migration:run && node src/main"]
+CMD [ "node", "dist/main.js" ]
