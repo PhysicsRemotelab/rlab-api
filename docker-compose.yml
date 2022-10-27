@@ -12,8 +12,8 @@ services:
       - rlab-api_dist:/home/node/dist
     command: npm run start:dev
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+      DB_HOST: 'rlab-mysql'
+      DB_PORT: 3306
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE: ${DB_DATABASE}

@@ -32,7 +32,7 @@ export class BookingService {
                 labId: bookingDto.lab_id,
                 takenFrom: LessThan(bookDate),
                 takenUntil: MoreThan(bookDate),
-                isCancelled: 0
+                isCancelled: false
             }
         });
 
@@ -70,7 +70,7 @@ export class BookingService {
                 labId: labId,
                 takenFrom: LessThan(today),
                 takenUntil: MoreThan(today),
-                isCancelled: 0
+                isCancelled: false
             },
             relations: ['user', 'lab']
         });
@@ -106,7 +106,7 @@ export class BookingService {
             where: {
                 labId: labId,
                 takenUntil: MoreThan(new Date()),
-                isCancelled: 0
+                isCancelled: false
             }
         });
         console.log(bookings);
