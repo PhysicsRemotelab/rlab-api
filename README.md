@@ -31,7 +31,7 @@ When running application, database tables are created automatically.
 
 By default, database will be empty. To seed database with default data run, following command
 ```
-npm run seed
+npm run typeorm:run-migrations
 ```
 
 If API is running correctly, then it is possible to see Swagger documentation of all available API endpoints on following route
